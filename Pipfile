@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 fpdf = "*"
+django = "*"
 
 [dev-packages]
 
