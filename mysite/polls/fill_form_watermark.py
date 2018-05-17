@@ -5,8 +5,8 @@ from PyPDF2 import PdfFileReader, PdfFileWriter
 
 # declare location of PDFs to use
 overlay_pdf_file_name = 'overlay_PDF.pdf' # textOverSuccess.pdf
-pdf_template_file_name = 'decryptedVTR341flat.pdf' # base_PDF_template
-result_pdf_file_name = 'final_PDF.pdf'
+pdf_template_file_name = 'background.pdf' # base_PDF_template
+
 
 pdf = FPDF('P', 'mm', 'letter') # paragraph oriented, millimeters measured, letter page sized
 pdf.add_page()
@@ -14,48 +14,55 @@ pdf.set_font('Arial', '', 14) # font, style ('' means normal), 14pt
 
 ### test dictionary for overlay data
 ### WORKS
-form_dictionary = \
-{
-    'form': 'ACCT',
-    'data': [
-        { 'x': 13, 'y': 146, 'w': 94, 'h': 5.5, 'value': 'testing another iterating' },
-        { 'x': 108, 'y': 146, 'w': 23, 'h': 5.5, 'value': '1450' },
-        { 'x': 133, 'y': 146, 'w': 22, 'h': 5.5, 'value': 'iterating make another' },
-    ]
-}
 
-# adds form data to overlay pdf
-for field in range(0, len(form_dictionary['data'])):
-    pdf.set_xy(form_dictionary['data'][field]['x'], form_dictionary['data'][field]['y'])
-    pdf.cell(form_dictionary['data'][field]['w'], form_dictionary['data'][field]['h'], form_dictionary['data'][field]['value'])
+def makePDF(someArr):
+    #this is necessary to get python garbage collector to change values each iteration of makePDF
+    someArr += ''
 
-# ready to overlay to watermark template
-pdf.output('overlay_PDF.pdf')
-pdf.close()
+    result_pdf_file_name = someArr + ".pdf"
+    print(someArr + '2')
+    form_dictionary = \
+    {
+        'form': 'ACCT',
+        'data': [
+            { 'x': 13, 'y': 146, 'w': 94, 'h': 5.5, 'value': someArr },
+            { 'x': 108, 'y': 146, 'w': 23, 'h': 5.5, 'value': '1450' },
+            { 'x': 133, 'y': 146, 'w': 22, 'h': 5.5, 'value': 'iterating make another' },
+        ]
+    }
+
+    # adds form data to overlay pdf
+    for field in range(0, len(form_dictionary['data'])):
+        pdf.set_xy(form_dictionary['data'][field]['x'], form_dictionary['data'][field]['y'])
+        pdf.cell(form_dictionary['data'][field]['w'], form_dictionary['data'][field]['h'], form_dictionary['data'][field]['value'])
+
+    # ready to overlay to watermark template
+    pdf.output('overlay_PDF.pdf')
+    pdf.close()
 
 
-### this takes the overlay data and merges it with the watermark template
-### WORKS
-with open(pdf_template_file_name, 'rb') as pdf_template_file, open(overlay_pdf_file_name, 'rb') as overlay_PDF_file:
+    ### this takes the overlay data and merges it with the watermark template
+    ### WORKS
+    with open("./polls/background.pdf", 'rb') as pdf_template_file, open(overlay_pdf_file_name, 'rb') as overlay_PDF_file:
+        print(someArr + '3')
+        # open watermark template pdf object
+        pdf_template = PdfFileReader(pdf_template_file)
+        # open overlay data pdf object
+        overlay_PDF = PdfFileReader(overlay_PDF_file)
 
-    # open watermark template pdf object 
-    pdf_template = PdfFileReader(pdf_template_file)
-    # open overlay data pdf object
-    overlay_PDF = PdfFileReader(overlay_PDF_file)
-
-    template_total_pages = pdf_template.getNumPages()
-    # iterate through each page to flatten overlay data and watermark template
-    for page_number in range(0, template_total_pages):
-        # get each page from watermark template
-        template_page = pdf_template.getPage(page_number)
-        # merge overlay data to watermark template
-        template_page.mergePage(overlay_PDF.getPage(page_number))
-        # write result to new PDF
-        output_pdf = PdfFileWriter()
-        output_pdf.addPage(template_page)
-    with open(result_pdf_file_name, 'wb') as result_pdf_file:
-        output_pdf.write(result_pdf_file)
-
+        template_total_pages = pdf_template.getNumPages()
+        # iterate through each page to flatten overlay data and watermark template
+        for page_number in range(0, template_total_pages):
+            # get each page from watermark template
+            template_page = pdf_template.getPage(page_number)
+            # merge overlay data to watermark template
+            template_page.mergePage(overlay_PDF.getPage(page_number))
+            # write result to new PDF
+            output_pdf = PdfFileWriter()
+            output_pdf.addPage(template_page)
+        with open(result_pdf_file_name, 'wb') as result_pdf_file:
+            output_pdf.write(result_pdf_file)
+    result_pdf_file_name = ""
 
 
 
@@ -224,7 +231,7 @@ form_dictionary = {
 #     # open blank pdf object
 #     blank_PDF = PdfFileReader(blank_PDF_file)
 
-#     # open  watermark template pdf object 
+#     # open  watermark template pdf object
 #     pdf_template = PdfFileReader(pdf_template_file)
 
 #     if '/AcroForm' in pdf_template.trailer['/Root']:
@@ -287,7 +294,7 @@ form_dictionary = {
 # # testing compound /with/ statements to allow opened files to close
 # # with open(pdf_template_file_name, 'rb') as pdf_template, open(overlay_pdf_file_name, 'rb') as overlay_PDF: # template_file_opened:
 
-# # open your watermark template PDF 
+# # open your watermark template PDF
 # pdf_template = PdfFileReader(open(pdf_template_file_name, 'rb'))
 # # open overlay data pdf
 # overlay_PDF = PdfFileReader(open(overlay_pdf_file_name, 'rb'))
@@ -368,5 +375,3 @@ form_dictionary = {
 # for page in trailer.pages:
 #     PageMerge(page).add(wmark, prepend=underneath).render()
 # PdfWriter(outfn, trailer=trailer).write()
-
-

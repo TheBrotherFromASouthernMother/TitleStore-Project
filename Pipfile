@@ -8,6 +8,7 @@ fpdf = "*"
 django = "*"
 mysqlclient = "*"
 "psycopg2" = "*"
+"pypdf2" = "*"
 
 [dev-packages]
 
