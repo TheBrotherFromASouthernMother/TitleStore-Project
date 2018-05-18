@@ -3,7 +3,7 @@ import sys
 from fpdf import FPDF
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
-def makePDF(someArr):
+def makePDF(customerData):
     # declare location of PDFs to use
     overlay_pdf_file_name = 'overlay_PDF.pdf' # textOverSuccess.pdf
     pdf_template_file_name = 'background.pdf' # base_PDF_template
@@ -16,17 +16,12 @@ def makePDF(someArr):
     ### test dictionary for overlay data
     ### WORKS
 
-
-    #this is necessary to get python garbage collector to change values each iteration of makePDF
-    someArr += ''
-
-    result_pdf_file_name = "./pdfs/" + someArr + ".pdf"
-    print(someArr + '2')
+    result_pdf_file_name = "./pdfs/" + customerData['person_name'] + ".pdf"
     form_dictionary = \
     {
         'form': 'ACCT',
         'data': [
-            { 'x': 13, 'y': 146, 'w': 94, 'h': 5.5, 'value': someArr },
+            { 'x': 13, 'y': 146, 'w': 94, 'h': 5.5, 'value': customerData['person_name'] },
             { 'x': 108, 'y': 146, 'w': 23, 'h': 5.5, 'value': '1450' },
             { 'x': 133, 'y': 146, 'w': 22, 'h': 5.5, 'value': 'iterating make another' },
         ]
@@ -45,7 +40,6 @@ def makePDF(someArr):
     ### this takes the overlay data and merges it with the watermark template
     ### WORKS
     with open("./polls/background.pdf", 'rb') as pdf_template_file, open(overlay_pdf_file_name, 'rb') as overlay_PDF_file:
-        print(someArr + '3')
         # open watermark template pdf object
         pdf_template = PdfFileReader(pdf_template_file)
         # open overlay data pdf object
@@ -63,8 +57,6 @@ def makePDF(someArr):
             output_pdf.addPage(template_page)
         with open(result_pdf_file_name, 'wb') as result_pdf_file:
             output_pdf.write(result_pdf_file)
-            print(form_dictionary['data'][0]['value'], 'gaaa')
-            # os.remove('overlay_PDF.pdf')
 
 
 
