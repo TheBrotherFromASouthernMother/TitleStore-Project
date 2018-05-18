@@ -3,23 +3,24 @@ import sys
 from fpdf import FPDF
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
-# declare location of PDFs to use
-overlay_pdf_file_name = 'overlay_PDF.pdf' # textOverSuccess.pdf
-pdf_template_file_name = 'background.pdf' # base_PDF_template
-
-
-pdf = FPDF('P', 'mm', 'letter') # paragraph oriented, millimeters measured, letter page sized
-pdf.add_page()
-pdf.set_font('Arial', '', 14) # font, style ('' means normal), 14pt
-
-### test dictionary for overlay data
-### WORKS
-
 def makePDF(someArr):
+    # declare location of PDFs to use
+    overlay_pdf_file_name = 'overlay_PDF.pdf' # textOverSuccess.pdf
+    pdf_template_file_name = 'background.pdf' # base_PDF_template
+
+
+    pdf = FPDF('P', 'mm', 'letter') # paragraph oriented, millimeters measured, letter page sized
+    pdf.add_page()
+    pdf.set_font('Arial', '', 14) # font, style ('' means normal), 14pt
+
+    ### test dictionary for overlay data
+    ### WORKS
+
+
     #this is necessary to get python garbage collector to change values each iteration of makePDF
     someArr += ''
 
-    result_pdf_file_name = someArr + ".pdf"
+    result_pdf_file_name = "./pdfs/" + someArr + ".pdf"
     print(someArr + '2')
     form_dictionary = \
     {
@@ -62,7 +63,8 @@ def makePDF(someArr):
             output_pdf.addPage(template_page)
         with open(result_pdf_file_name, 'wb') as result_pdf_file:
             output_pdf.write(result_pdf_file)
-    result_pdf_file_name = ""
+            print(form_dictionary['data'][0]['value'], 'gaaa')
+            # os.remove('overlay_PDF.pdf')
 
 
 

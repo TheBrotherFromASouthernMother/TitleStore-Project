@@ -1,6 +1,6 @@
 ### EZ Form for Business
 
-<p> EZ Form for business is technical solution for automated documentation.  </p>
+<p> EZ Form for business is a technical solution for automated documentation.  </p>
 
 
 ## Key Technologies:
