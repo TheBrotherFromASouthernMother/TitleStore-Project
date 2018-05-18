@@ -7,6 +7,6 @@ admin.site.register(people)
 
 
 from .models import Customer
-from .models import Vehicle
+#from .models import Vehicle
 admin.site.register(Customer)
-admin.site.register(Vehicle)
+#admin.site.register(Vehicle)
