@@ -38,7 +38,7 @@ class Customer(models.Model):
     cu_flag_military = models.NullBooleanField('Are you military personel stationed in Texas?', blank=True, null = True)
 
     def __str__(self):
-        return self.cu_first_name + ' ' + self.cu_last_name
+        return '{}, {}'.format(self.cu_last_name, self.cu_first_name)
 
 
 class Vehicle(models.Model):
@@ -83,4 +83,4 @@ class Vehicle(models.Model):
     v_flag_no_plates = models.CharField('Please select one:', max_length=200, choices=NO_PLATES_FLAGS, blank=True, null = True)
 
     def __str__(self):
-        return self.v_vin
+        return '{} - {}'.format(self.Customer, self.v_vin)
