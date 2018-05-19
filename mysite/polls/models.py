@@ -41,9 +41,46 @@ class Customer(models.Model):
         return self.cu_first_name + ' ' + self.cu_last_name
 
 
-class Test(models.Model):
+class Vehicle(models.Model):
+    NO_PLATES_FLAGS = (
+        ('HAS_PLATES', 'License plates and registration issued for this vehicle are being surrendered. The registration for this vehicle is not currently suspended or revoked.'),
+        ('NO_PLATES', 'Vehicle has no license plates and/or registration.'),
+        ('MIL_PLATES', 'Vehicle has been issued a license plate under the applicable status of forces agreement.'),
+    )
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=200, default='Nancy')
+    Customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    v_date_added = models.DateField(auto_now_add=True)
+    v_date_last_changed = models.DateField(auto_now=True)
+    v_vin = models.CharField('Vehicle Identification Number', max_length=17, blank=True, null = True)
+    v_year = models.DecimalField('Year', max_digits=4, decimal_places=0, blank=True, null = True)
+    v_make = models.CharField('Make', max_length=200, blank=True, null = True)
+    v_body_style = models.CharField('Body Style', max_length=200, blank=True, null = True)
+    v_model = models.CharField('Model', max_length=200, blank=True, null = True)
+    v_purchased_from_name = models.CharField('Seller Name', max_length=200, blank=True, null = True)
+    v_purchased_from_city = models.CharField('City Purchased From', max_length=200, blank=True, null = True)
+    v_purchased_from_state = models.CharField('State Purchased From', max_length=200, blank=True, null = True)
+    v_odometer_reading = models.IntegerField('Odometer Reading', blank=True, null = True)
+    v_purchase_date = models.DateField('Purchase Date', blank=True, null = True)
+    v_purchase_price_usd = models.DecimalField('Purchase Price (USD)', max_digits=20, decimal_places=2, blank=True, null = True)
+    v_plate_number = models.CharField('License Plate Number', max_length=8, blank=True, null = True)
+    v_empty_weight = models.IntegerField('Empty Weight', blank=True, null = True)
+    v_lienholder_name_first = models.CharField('Lienholder Name (First)', max_length=200, default='N/A', blank=True, null = True)
+    v_seller_signature = models.CharField('Seller Signature', max_length=200, default='UNAVAILABLE', blank=True, null = True)
+    v_bond_request_explanation = models.TextField('Provide an explanation for requesting a bonded title or tax assessor-collector hearing.', blank=True, null = True)
+    v_flag_last_titled_in_tx = models.NullBooleanField('Was the vehicle last titled in Texas?', blank=True, null = True)
+    v_flag_abandoned = models.NullBooleanField('Is the vehicle an abandoned vehicle?', blank=True, null = True)
+    v_flag_subject_to_charges = models.NullBooleanField('Is the vehicle subject to storage or mechanic\'s charges?', blank=True, null = True)
+    v_flag_subject_to_lien = models.NullBooleanField('Is the vehicle subject to any type of foreclosure lien?', blank=True, null = True)
+    v_flag_nonrepairable = models.NullBooleanField('Is the vehicle a nonrepairable vehicle?', blank=True, null = True)
+    v_flag_salvage = models.NullBooleanField('Is the vehicle a salvage vehicle?', blank=True, null = True)
+    v_flag_pending_lawsuits = models.NullBooleanField('Is the vehicle involved in any pending lawsuits or disputes of ownership?', blank=True, null = True)
+    v_flag_legal_posession = models.NullBooleanField('Are you in legal possession of the vehicle?', blank=True, null = True)
+    v_flag_legal_control = models.NullBooleanField('Are you in legal control of the vehicle?', blank=True, null = True)
+    v_flag_manufactured_us = models.NullBooleanField('Was the vehicle manufactured for sale or distribution in the United States by a motor vehicle manufacturer?', blank=True, null = True)
+    v_flag_assembled = models.NullBooleanField('Is the vehicle an assembled vehicle from new or used part(s) or a kit that has not been previously titled?', blank=True, null = True)
+    v_flag_complete = models.NullBooleanField('Is the vehicle complete?', blank=True, null = True)
+    v_flag_25_or_older = models.NullBooleanField('Is the vehicle 25 or more years old?', blank=True, null = True)
+    v_flag_no_plates = models.CharField('Please select one:', max_length=200, choices=NO_PLATES_FLAGS, blank=True, null = True)
 
     def __str__(self):
-        return self.name
+        return self.v_vin
