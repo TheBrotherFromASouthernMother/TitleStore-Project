@@ -10,3 +10,6 @@ from .models import Customer
 #from .models import Vehicle
 admin.site.register(Customer)
 #admin.site.register(Vehicle)
+
+from .models import Test
+admin.site.register(Test)

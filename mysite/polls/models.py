@@ -39,3 +39,11 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.cu_first_name + ' ' + self.cu_last_name
+
+
+class Test(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=200, default='Nancy')
+
+    def __str__(self):
+        return self.name
