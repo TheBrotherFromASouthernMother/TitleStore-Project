@@ -3,6 +3,8 @@ import os
 
 # Register your models here.
 from .models import people
+from .models import Customer
+from .models import Vehicle
 
 from .fill_form_watermark import makePDF
 
@@ -20,5 +22,8 @@ class peopleAdmin(admin.ModelAdmin):
     ordering = ['person_name']
     actions = [populatePDF]
 
-
 admin.site.register(people, peopleAdmin)
+
+admin.site.register(Customer)
+
+admin.site.register(Vehicle)
