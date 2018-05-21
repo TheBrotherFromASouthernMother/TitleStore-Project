@@ -14,4 +14,4 @@
 ## Authors
  ### Andy Tang - <a href="https://github.com/andytanghr"> @AndyTangHR </a>
  ### Christian Lowe - <a href="https://github.com/TheBrotherFromASouthernMother"> @TheBrotherFromASouthernMother </a>
- ### Erin Thigpen - <a href="https://github.com/thigabiga"> @thigabiga </a>
+ ### Erin Thigpen - <a href="https://github.com/thigabiga"> @ThigaBiga </a>
