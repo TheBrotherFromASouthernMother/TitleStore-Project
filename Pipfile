@@ -11,6 +11,7 @@ mysqlclient = "*"
 "pypdf2" = "*"
 gunicorn = "*"
 whitenoise = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 
