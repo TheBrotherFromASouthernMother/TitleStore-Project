@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'TitleStore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd2h6hu94rmljn3',
-        'USER': 'cqdunvojnddrnq',
-        'PASSWORD': '5fc58ebae5bc93b00617cc9e925e8efa576f6a719378018397b03f9ab84ae547',
-        'HOST': 'ec2-50-17-206-214.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
