@@ -84,3 +84,15 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.Customer, self.v_vin)
+
+
+class ACCT_Form(models.Model):
+    id = models.AutoField(primary_key=True)
+    # Customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    # queryset=
+    acct_date_added = models.DateField(auto_now_add=True)
+    # acct_vin = models.CharField('Vehicle Identification Number', max_length=17, default=Customer.)
+    acct_first_name = models.CharField(max_length=200, default=Customer.cu_first_name)
+
+    def __str__(self):
+        return '{} - {}'.format(self.Customer, self.acct_date_added)

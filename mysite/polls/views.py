@@ -1,10 +1,11 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse
-
-from .models import people
+from django.urls import reverse_lazy
 
 from django.template import loader
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
+from .models import people, Customer, Vehicle
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -25,3 +26,20 @@ def results(request, question_id):
 
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
+
+class CustomerCreate(CreateView):
+    model = Customer
+    fields = '__all__'
+
+class CustomerDelete(DeleteView):
+    model = Customer
+    fields = '__all__'
+    success_url = reverse_lazy('index')
+
+class CustomerUpdate(UpdateView):
+    model = Customer
+    fields = '__all__'
+
+# class VehicleCreate(CreateView):
+
+# class CustomerList
