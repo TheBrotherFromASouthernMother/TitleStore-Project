@@ -11,6 +11,7 @@ from .models import Customer, Vehicle
 from django.http import HttpRequest
 
 from django.db import models
+from django.views.generic.edit import CreateView, DeleteView,
 
 from .models import people
 from django.views.decorators.csrf import csrf_exempt
@@ -53,3 +54,28 @@ def person(request, person_name):
     if request.method == 'POST':
         print('posted')
     return HttpResponse('Hello' + person_name + '!')
+
+
+class CustomerCreate(CreateView):
+    model = Customer
+    fields = '__all__'
+
+class CustomerDelete(DeleteView):
+    model = Customer
+    success_url = 'index' # check for correct url
+
+class CustomerUpdate(UpdateView):
+    model = Customer
+    fields = '__all__'
+
+class VehicleCreate(UpdateView):
+    model = Vehicle
+    fields = '__all__'
+
+class VehicleDelete(DeleteView):
+    model = Vehicle
+    success_url = 'index' # check for correct url
+
+class VehicleUpdate(UpdateView):
+    model = Vehicle
+    fields = '__all__'
