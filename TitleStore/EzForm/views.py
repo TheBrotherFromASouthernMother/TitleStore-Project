@@ -5,7 +5,7 @@
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Customer, Vehicle
+from .models import Customer, Vehicle, ACCTForm
 
 from django.http import HttpRequest
 
@@ -60,6 +60,7 @@ class CustomerDelete(DeleteView):
 class CustomerUpdate(UpdateView):
     model = Customer
     fields = '__all__'
+
 
 class VehicleCreate(UpdateView):
     model = Vehicle
