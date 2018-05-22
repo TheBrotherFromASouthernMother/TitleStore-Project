@@ -25,7 +25,7 @@ SECRET_KEY = ')e)zg=ag$s==*j#*&hu%-)zqef5w&dj5ti7u=5qt-k4ls1#w3q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['the-title-store-form-filler.herokuapp.com']
+ALLOWED_HOSTS = ['the-title-store-form-filler.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'TitleStore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'NAME': os.environ.get('DB_NAME', 'd3p5q3nl2sifgo'),
+        'USER': os.environ.get('DB_USER','njpatflvjrljtb'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', '580c7229c0c34c9c5b5495952ddb72efa2d6a7bc122e48ba61b872529bda8448'),
+        'HOST': os.environ.get('DB_HOST', 'ec2-54-225-107-174.compute-1.amazonaws.com'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -127,6 +127,6 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'static'),
+# )

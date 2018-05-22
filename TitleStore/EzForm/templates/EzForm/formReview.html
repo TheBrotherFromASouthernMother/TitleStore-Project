@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form class="" action="formReview.html" method="post">
+      <button class="dropbtn">Dropdown</button>
+        <div class="dropdown-content">
+          <!-- {{customers}} -->
+          {% for customer in customers %}
+          <button type="button" name="button"> {{customer}} </button>
+          {% endfor %}
+        </div>
+    </form>
+  </body>
+</html>
