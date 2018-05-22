@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ae2e0de0d1678a606f55c8fa54cd639cf91e3ff45e3ee4ebce298650826e2565"
+            "sha256": "194bdedb7ff22157b059bb753126963084fa3271cf986024f04294fe118a3d71"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -50,10 +50,6 @@
             "version": "==1.3.12"
         },
         "psycopg2": {
-            "hashes": [],
-            "version": "==2.7.4"
-        },
-        "psycopg2-binary": {
             "hashes": [],
             "version": "==2.7.4"
         },
