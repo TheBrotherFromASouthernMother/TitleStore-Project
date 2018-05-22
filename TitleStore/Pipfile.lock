@@ -1,0 +1,70 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "194bdedb7ff22157b059bb753126963084fa3271cf986024f04294fe118a3d71"
+        },
+        "host-environment-markers": {
+            "implementation_name": "cpython",
+            "implementation_version": "3.6.4",
+            "os_name": "posix",
+            "platform_machine": "x86_64",
+            "platform_python_implementation": "CPython",
+            "platform_release": "17.4.0",
+            "platform_system": "Darwin",
+            "platform_version": "Darwin Kernel Version 17.4.0: Sun Dec 17 09:19:54 PST 2017; root:xnu-4570.41.2~1/RELEASE_X86_64",
+            "python_full_version": "3.6.4",
+            "python_version": "3.6",
+            "sys_platform": "darwin"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.6"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "django": {
+            "hashes": [],
+            "version": "==2.0.5"
+        },
+        "django-widget-tweaks": {
+            "hashes": [],
+            "version": "==1.4.2"
+        },
+        "fpdf": {
+            "hashes": [],
+            "version": "==1.7.2"
+        },
+        "gunicorn": {
+            "hashes": [],
+            "version": "==19.8.1"
+        },
+        "mysqlclient": {
+            "hashes": [],
+            "version": "==1.3.12"
+        },
+        "psycopg2": {
+            "hashes": [],
+            "version": "==2.7.4"
+        },
+        "pypdf2": {
+            "hashes": [],
+            "version": "==1.26.0"
+        },
+        "pytz": {
+            "hashes": [],
+            "version": "==2018.4"
+        },
+        "whitenoise": {
+            "hashes": [],
+            "version": "==3.3.1"
+        }
+    },
+    "develop": {}
+}
