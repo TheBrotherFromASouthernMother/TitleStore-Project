@@ -25,7 +25,7 @@ SECRET_KEY = ')e)zg=ag$s==*j#*&hu%-)zqef5w&dj5ti7u=5qt-k4ls1#w3q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['the-title-stor-form-filler.herokuapp.com']
+ALLOWED_HOSTS = ['the-title-stor-form-filler.herokuapp.com', 'localhost']
 
 
 # Application definition

@@ -6,16 +6,15 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from . import forms
 
 def index(request):
     return render(request, 'EzForm/index.html')
 
-def customer(request):
-    return render(request, 'EzForm/customer.html')
+def customers(request):
+    return render(request, 'EzForm/customers.html')
 
-def vehicle(request):
-    return render(request, 'EzForm/vehicle.html')
+def vehicles(request):
+    return render(request, 'EzForm/vehicles.html')
 
 def forms(request):
     return render(request, 'EzForm/forms.html')
