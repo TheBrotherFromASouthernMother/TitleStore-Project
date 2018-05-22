@@ -9,11 +9,49 @@
     <form class="" action="formReview.html" method="post">
       <button class="dropbtn">Dropdown</button>
         <div class="dropdown-content">
-          <!-- {{customers}} -->
           {% for customer in customers %}
-          <button type="button" name="button"> {{customer}} </button>
+          <button type="button" name="button" class="dropdown-item"> {{customer}} </button>
           {% endfor %}
         </div>
     </form>
+
+    <script type="text/javascript">
+      let dropdownButtons = document.querySelectorAll('.dropdown-item')
+      dropdownButtons.forEach( button => {
+        button.addEventListener('click', (e) => {
+          let customer_name = button.textContent;
+          var csrftoken = getCookie('csrftoken');
+          var headers = new Headers();
+          headers.append('X-CSRFToken', csrftoken);
+          alert( `You clicked a button ${customer_name}`)
+          fetch(`/person/${customer_name}/`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: headers
+          }).then( data => {
+            console.log(data)
+          }).catch( err => {
+            console.log(err)
+          })
+        })
+      })
+
+  //Taken from w3schools website for getting website cookies
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  }
+    </script>
   </body>
 </html>

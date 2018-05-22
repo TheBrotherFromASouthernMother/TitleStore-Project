@@ -1,7 +1,8 @@
 # from django.shortcuts import render
-# from django.http import HttpResponse
+from django.http import HttpResponse
 # from .models import people
-# from django.template import loader
+
+from django.template import loader
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -12,6 +13,8 @@ from django.http import HttpRequest
 from django.db import models
 
 from .models import people
+from django.views.decorators.csrf import csrf_exempt
+
 
 def index(request):
     return render(request, 'EzForm/index.html')
@@ -41,6 +44,12 @@ def detail(request):
             context['customers'].append(customer.person_name)
 
         return HttpResponse(template.render(context, request))
-        
+
 def forms(request):
     return render(request, 'EzForm/forms.html')
+
+def person(request, person_name):
+    # @csrf_protect
+    if request.method == 'POST':
+        print('posted')
+    return HttpResponse('Hello' + person_name + '!')
