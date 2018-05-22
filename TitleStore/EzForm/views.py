@@ -38,5 +38,6 @@ def detail(request):
             context['customers'].append(customer.person_name)
 
         return HttpResponse(template.render(context, request))
+        
 def forms(request):
     return render(request, 'EzForm/forms.html')

@@ -18,5 +18,5 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('EzForm.urls')),
+    path('/EzForm', include('EzForm.urls')),
 ]
