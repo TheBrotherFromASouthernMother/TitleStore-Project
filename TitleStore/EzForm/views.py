@@ -4,7 +4,8 @@
 # from django.template import loader
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from .models import Customer, Vehicle
 
 from django.http import HttpRequest
 
@@ -16,7 +17,9 @@ def index(request):
     return render(request, 'EzForm/index.html')
 
 def customers(request):
-    return render(request, 'EzForm/customers.html')
+    all_customers = Customer.objects.order_by('cu_last_name')
+    context = {'customer_list' : all_customers }
+    return render(request, 'EzForm/customers.html', context)
 
 def vehicles(request):
     return render(request, 'EzForm/vehicles.html')
