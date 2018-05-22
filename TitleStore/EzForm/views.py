@@ -10,9 +10,11 @@ from .models import Customer, Vehicle
 #from django.http import HttpRequest
 
 from django.db import models
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView,
 
-# from .models import people
+from .models import people
+from django.views.decorators.csrf import csrf_exempt
+
 
 def index(request):
     return render(request, 'EzForm/index.html')
@@ -44,11 +46,15 @@ def detail(request):
             context['customers'].append(customer.person_name)
 
         return HttpResponse(template.render(context, request))
-        
+
 def forms(request):
     return render(request, 'EzForm/forms.html')
 
-
+def person(request, person_name):
+    # @csrf_protect
+    if request.method == 'POST':
+        print('posted')
+    return HttpResponse('Hello' + person_name + '!')
 
 
 class CustomerCreate(CreateView):

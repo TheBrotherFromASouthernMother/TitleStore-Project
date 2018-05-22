@@ -9,7 +9,9 @@ urlpatterns = [
     path('customers/', views.customers, name='customers'),
     path('vehicles/', views.vehicles, name='vehicles'),
     path('forms/', views.forms, name='forms'),
-    
+    path('person/<str:person_name>/', views.person, name='person')
+    # ex: /polls/5/results/
+
     path('customer/create/', CustomerCreate.as_view(), name='customer-create'),
     path('customer/<int:pk>/', CustomerUpdate.as_view(), name='customer-update'),
     path('customer/<int:pk>/delete', CustomerDelete.as_view(), name='customer-delete'),
