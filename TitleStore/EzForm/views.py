@@ -1,13 +1,13 @@
 # from django.shortcuts import render
-# from django.http import HttpResponse
-# from .models import people
-# from django.template import loader
+from django.http import HttpResponse
+
+from django.template import loader
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from .models import Customer, Vehicle
 
-from django.http import HttpRequest
+#from django.http import HttpRequest
 
 from django.db import models
 
@@ -22,7 +22,9 @@ def customers(request):
     return render(request, 'EzForm/customers.html', context)
 
 def vehicles(request):
-    return render(request, 'EzForm/vehicles.html')
+    all_vehicles = Vehicle.objects.order_by('v_vin')
+    context = {'vehicle_list' : all_vehicles }
+    return render(request, 'EzForm/vehicles.html', context)
 
 
 
