@@ -1,1 +1,0 @@
-web: gunicorn TitleStore.wsgi --log-file -
