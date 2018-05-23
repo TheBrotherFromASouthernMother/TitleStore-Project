@@ -23,4 +23,6 @@ urlpatterns = [
     path('acttform/create', AcctFormCreate.as_view(), name='acctform-create'),
     path('acttform/<int:pk>/delete', AcctFormDelete.as_view(), name='acctform-delete'),
     path('acttform/<int:pk>/', AcctFormUpdate.as_view(), name='acctform-update'),
+
+    path('makeAcctPdf/', views.makeAcctPdf, name='makeAcctPdf'),
 ]

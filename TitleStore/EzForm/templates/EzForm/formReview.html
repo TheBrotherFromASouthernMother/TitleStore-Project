@@ -12,21 +12,23 @@
     </form>
 
     <form class="" action="makeacctpdf" method="post">
-
+      <input type="text" name="" value="">
+      <button type="button" name="button" class="info-submit"></button>
     </form>
 
 
     <script type="text/javascript">
-
+     let customerInfo = null;
       let dropdownButtons = document.querySelectorAll('.dropdown-item')
       let box = document.querySelector('.box')
+      var csrftoken = getCookie('csrftoken');
+      var headers = new Headers();
+      console.log(headers.get('X-CSRFToken'))
 
       dropdownButtons.forEach( button => {
         button.addEventListener('click', (e) => {
           let customer_name = button.textContent;
-          var csrftoken = getCookie('csrftoken');
-          var headers = new Headers();
-          console.log(headers.get('X-CSRFToken'))
+          console.log(customer_name)
           headers.append('X-CSRFToken', csrftoken);
           fetch(`/customer_info_to_review/${customer_name}/`, {
             method: 'POST',
@@ -36,12 +38,29 @@
             return data.json()
           }).then( data => {
             console.log(data)
+            customerInfo = data
           }).catch( err => {
             console.log(err)
           })
         })
       })
 
+      let submitToPDFButton = document.querySelector('.info-submit');
+      submitToPDFButton.addEventListener('click', (e) => {
+        fetch('/makeAcctPdf/', {
+          method: 'POST',
+          credentials: 'include',
+          headers: headers,
+          body: JSON.stringify(customerInfo)
+        }).then( data => {
+          return data.json()
+        }).then( data => {
+          console.log(data)
+          customerInfo = data
+        }).catch( err => {
+          console.log(err)
+        })
+      })
   //Taken from w3schools website for getting website cookies
   function getCookie(cname) {
     let name = cname + "=";

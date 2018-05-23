@@ -1,20 +1,15 @@
 # from django.shortcuts import render
-from django.http import HttpResponse
-# from .models import people
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect,  HttpRequest
 
 from django.template import loader
 
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from .models import Customer, Vehicle, AcctForm
-
-from django.http import HttpRequest
 
 from django.db import models
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import people
-from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 def index(request):
@@ -27,8 +22,6 @@ def customers(request):
 
 def vehicles(request):
     return render(request, 'EzForm/vehicles.html')
-
-
 
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
@@ -51,20 +44,20 @@ def forms(request):
 
 def customer_info_to_review(request, cu_name):
     cumstomer_query = cu_name.split(', ')
-    print(cumstomer_query[0])
+    # print(cumstomer_query[0])
     cu_last_name = cumstomer_query[0]
     cu_first_name = cumstomer_query[1]
     customers_on_file = Customer.objects.get(cu_last_name=cu_last_name, cu_first_name=cu_first_name)
-    print(customers_on_file.__dict__)
+    # print(customers_on_file.__dict__)
     customer_file = customers_on_file.__dict__
     dataToSendToClient = {}
     for key in customer_file:
         if key != '_state':
             dataToSendToClient[key] = customer_file[key]
-    print(dataToSendToClient)
+    # print(dataToSendToClient)
     response = JsonResponse(dataToSendToClient)
     print('posted')
-    print(response)
+    # print(response)
     return response
 
 class CustomerCreate(CreateView):
@@ -111,11 +104,14 @@ class AcctFormUpdate(UpdateView):
 
 def makeAcctPdf(request):
     if request.method == 'POST':
-        c_id = customer.id
+        body = json.loads(request.body)
+        print(body)
+        #TODO: save to DB, and redirect user to PDF page
+        c_id = body['id']
         form_type = form.id # check for POST data structure
     try:
         customer = Customer.object.get(id=c_id)
         acct_form = form
-    except ObjectDoesNoExist: 
+    except ObjectDoesNoExist:
         print('no record found')
-        
+    return JsonResponse({'greet': 'G\'day mate'})
