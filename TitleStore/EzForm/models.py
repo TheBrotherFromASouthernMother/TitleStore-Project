@@ -28,7 +28,7 @@ class Customer(models.Model):
     cu_address_line_2 = models.CharField('Address Line 2', max_length=200, blank=True, null = True)
     cu_city = models.CharField('City', max_length=200, blank=True, null = True)
     cu_state = models.CharField('State', max_length=2, blank=True, null = True, default='TX')
-    cu_zip = models.CharField('Zip', max_length=10, blank=True, null = True)
+    cu_zip = models.CharField('ZIP Code', max_length=10, blank=True, null = True)
     cu_country = models.CharField('Country', max_length=200, blank=True, null = True, default='USA')
     cu_county = models.CharField('County', max_length=200, blank=True, null = True)
     cu_phone_primary = models.CharField('Phone', max_length=200, blank=True, null = True)
@@ -84,3 +84,30 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.Customer, self.v_vin)
+
+class AcctForm(models.Model):
+    id = models.AutoField(primary_key=True)
+    Customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    acct_date_added = models.DateField(auto_now_add=True)
+    acct_date_last_changed = models.DateField(auto_now=True)
+    acct_vin = models.CharField('Vehicle Identification Number', max_length=17, blank=True, null=True)
+    acct_vin_year = models.DecimalField('Year', max_digits=4, decimal_places=0, blank=True, null = True)
+    acct_vin_make = models.CharField('Make', max_length=200, blank=True, null = True)
+    acct_vin_body_style = models.CharField('Body Style', max_length=200, blank=True, null = True)
+    acct_vin_model = models.CharField('Model', max_length=200, blank=True, null = True)
+    acct_titledocument_number = models.CharField('Title/Document Number', max_length=200, blank=True, null=True)
+    acct_plate_number = models.CharField('License Plate Number', max_length=8, blank=True, null = True)
+    acct_agent_name = models.CharField('Name of Owner, Agent, Lienholder of the Vehicle', max_length=200, blank=True, null=True)
+    acct_recipient_first_name = models.CharField('First Name', max_length=200, blank=True, null=True)
+    acct_recipient_middle_name = models.CharField('Middle Name', max_length=200, blank=True, null=True)
+    acct_recipient_last_name = models.CharField('Last Name', max_length=200, blank=True, null=True)
+    acct_suffix = models.CharField('Suffix', max_length=200, blank=True, null=True)
+    acct_address = models.CharField('Mailing Address', max_length=200, blank=True, null=True)
+    acct_city = models.CharField('City', max_length=200, blank=True, null=True)
+    acct_state = models.CharField('State', max_length=2, blank=True, null=True)
+    acct_zip = models.CharField('ZIP Code', max_length=10, blank=True, null=True)
+    acct_email = models.EmailField('Email', blank=True, null = True)
+    acct_phone_primary = models.CharField('Phone', max_length=200, blank=True, null = True)
+    
+    def __str__(self):
+        return '{}'.format(self.Customer, self.acct_date_last_changed)
