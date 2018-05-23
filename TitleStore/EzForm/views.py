@@ -1,17 +1,16 @@
 # from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 # from .models import people
 
 from django.template import loader
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Customer, Vehicle
+from .models import Customer, Vehicle, AcctForm
 
-#from django.http import HttpRequest
+from django.http import HttpRequest
 
 from django.db import models
-
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import people
@@ -27,14 +26,12 @@ def customers(request):
     return render(request, 'EzForm/customers.html', context)
 
 def vehicles(request):
-    all_vehicles = Vehicle.objects.order_by('v_vin')
-    context = {'vehicle_list' : all_vehicles }
-    return render(request, 'EzForm/vehicles.html', context)
+    return render(request, 'EzForm/vehicles.html')
 
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+# def index(request):
+#     return HttpResponse("Hello, world. You're at the polls index.")
 
 # Create your views here.
 def customer_review(request):
@@ -48,7 +45,6 @@ def customer_review(request):
             context['customers'].append(customer.cu_last_name + ', ' + customer.cu_first_name)
 
         return HttpResponse(template.render(context, request))
-
 
 def forms(request):
     return render(request, 'EzForm/forms.html')
@@ -71,11 +67,10 @@ def customer_info_to_review(request, cu_name):
     print(response)
     return response
 
-
-
 class CustomerCreate(CreateView):
     model = Customer
     fields = '__all__'
+    template_name_suffix = '_create_form'
 
 class CustomerDelete(DeleteView):
     model = Customer
@@ -84,10 +79,12 @@ class CustomerDelete(DeleteView):
 class CustomerUpdate(UpdateView):
     model = Customer
     fields = '__all__'
+    template_name_suffix = '_update_form'
 
 class VehicleCreate(UpdateView):
     model = Vehicle
     fields = '__all__'
+    template_name_suffix = '_create_form'
 
 class VehicleDelete(DeleteView):
     model = Vehicle
@@ -96,3 +93,18 @@ class VehicleDelete(DeleteView):
 class VehicleUpdate(UpdateView):
     model = Vehicle
     fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class AcctFormCreate(CreateView):
+    model = AcctForm
+    fields = '__all__'
+    template_name_suffix = '_create_form'
+
+class AcctFormDelete(DeleteView):
+    model = AcctForm
+    success_url = 'index' # check for correct url
+
+class AcctFormUpdate(UpdateView):
+    model = AcctForm
+    fields = '__all__'
+    template_name_suffix = '_update_form'
