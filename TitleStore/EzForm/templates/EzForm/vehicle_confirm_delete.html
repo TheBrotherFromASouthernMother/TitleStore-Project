@@ -6,7 +6,7 @@
     <form method="POST">
         {% csrf_token %}
         <p>Are you sure you want to delete this vehicle record?</p>
-        <input class="btn btn-primary" type="submit" value="Delete" />
+        <input class="btn btn-primary" role="button" type="submit" />
         <a class="btn btn-secondary" href="/vehicles" role="button">Cancel</a>
     </form>
 

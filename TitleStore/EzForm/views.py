@@ -1,30 +1,24 @@
-# from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-# from .models import people
-
-from django.template import loader
-
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
-from .models import Customer, Vehicle, AcctForm
-
-from django.http import HttpRequest
-
+from django.template import loader
+from .models import Customer, Vehicle, AcctForm, people
 from django.db import models
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
-from .models import people
 from django.views.decorators.csrf import csrf_exempt
 
 
+
+# dashboard view
 def index(request):
     return render(request, 'EzForm/index.html')
 
+# customer list view
 def customers(request):
     all_customers = Customer.objects.order_by('cu_last_name')
     context = {'customer_list' : all_customers }
     return render(request, 'EzForm/customers.html', context)
 
+# vehicle list view
 def vehicles(request):
     all_vehicles = Vehicle.objects.order_by('Customer')
     context = {'vehicle_list' : all_vehicles }
@@ -32,10 +26,6 @@ def vehicles(request):
 
 
 
-# def index(request):
-#     return HttpResponse("Hello, world. You're at the polls index.")
-
-# Create your views here.
 def customer_review(request):
     if request.method == 'GET':
         template = loader.get_template('EzForm/formReview.html')
@@ -69,33 +59,39 @@ def customer_info_to_review(request, cu_name):
     print(response)
     return response
 
+
+
 class CustomerCreate(CreateView):
     model = Customer
     fields = '__all__'
     template_name_suffix = '_create_form'
+    success_url = '/customers/'
 
 class CustomerDelete(DeleteView):
     model = Customer
-    success_url = 'index' # check for correct url
+    success_url = '/customers/'
 
 class CustomerUpdate(UpdateView):
     model = Customer
     fields = '__all__'
     template_name_suffix = '_update_form'
+    success_url = '/customers/'
 
 class VehicleCreate(UpdateView):
     model = Vehicle
     fields = '__all__'
     template_name_suffix = '_create_form'
+    success_url = '/vehicles/'
 
 class VehicleDelete(DeleteView):
     model = Vehicle
-    success_url = 'index' # check for correct url
+    success_url = '/vehicles/'
 
 class VehicleUpdate(UpdateView):
     model = Vehicle
     fields = '__all__'
     template_name_suffix = '_update_form'
+    success_url = '/vehicles/'
 
 class AcctFormCreate(CreateView):
     model = AcctForm
@@ -120,4 +116,5 @@ def makeAcctPdf(request):
         acct_form = form
     except ObjectDoesNoExist: 
         print('no record found')
-        
+
+
