@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['the-title-store-form-filler.herokuapp.com', 'localhost']
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication'
+    ]
+}
 
 # Application definition
 

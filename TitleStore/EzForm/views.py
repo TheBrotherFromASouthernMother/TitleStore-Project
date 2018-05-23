@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 # from .models import people
 
 from django.template import loader
@@ -11,7 +11,8 @@ from .models import Customer, Vehicle
 from django.http import HttpRequest
 
 from django.db import models
-from django.views.generic.edit import CreateView, DeleteView,
+
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import people
 from django.views.decorators.csrf import csrf_exempt
@@ -46,14 +47,17 @@ def detail(request):
 
         return HttpResponse(template.render(context, request))
 
+
 def forms(request):
     return render(request, 'EzForm/forms.html')
 
 def person(request, person_name):
     # @csrf_protect
-    if request.method == 'POST':
-        print('posted')
-    return HttpResponse('Hello' + person_name + '!')
+    response = JsonResponse({'greeting': 'Hello' + person_name + "!"})
+    print('posted')
+    print(response)
+    return response
+
 
 
 class CustomerCreate(CreateView):
