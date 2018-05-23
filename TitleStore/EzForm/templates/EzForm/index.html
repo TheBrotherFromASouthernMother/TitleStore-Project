@@ -2,6 +2,22 @@
 
 {% block content %}
 
-<div>hey this is the index</div>
+<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
+    <div class="col-md-12 col-lg-6 d-flex justify-content-center">
+        <h2>Dashboard</h2>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
+    <div class="col-md-12 col-lg-6 d-flex justify-content-center">
+        <div class="list-group">
+            <a href="/customers" class="list-group-item list-group-item-action">View all customers.</a>
+            <a href="/customer/create" class="list-group-item list-group-item-action">Add a customer.</a>
+            <a href="/vehicles" class="list-group-item list-group-item-action">View all vehicles.</a>
+            <a href="/vehicle/create" class="list-group-item list-group-item-action">Add a vehicle.</a>
+            <a href="/forms" class="list-group-item list-group-item-action">View all forms.</a>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
