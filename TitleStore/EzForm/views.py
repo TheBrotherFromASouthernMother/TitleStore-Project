@@ -97,3 +97,14 @@ class AcctFormUpdate(UpdateView):
     model = AcctForm
     fields = '__all__'
     template_name_suffix = '_update_form'
+
+def makeAcctPdf(request):
+    if request.method == 'POST':
+        c_id = customer.id
+        form_type = form.id # check for POST data structure
+    try:
+        customer = Customer.object.get(id=c_id)
+        acct_form = form
+    except ObjectDoesNoExist: 
+        print('no record found')
+        
