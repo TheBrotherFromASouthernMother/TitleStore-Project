@@ -54,10 +54,16 @@ def forms(request):
     return render(request, 'EzForm/forms.html')
 
 def person(request, person_name):
-    # @csrf_protect
-    customers_on_file = people.objects.filter(person_name=person_name)
-    print(customers_on_file)
-    response = JsonResponse({'': 'Hello' + person_name + "!"})
+
+    customers_on_file = people.objects.get(person_name=person_name)
+    print(customers_on_file.__dict__)
+    customer_file = customers_on_file.__dict__
+    dataToSendToClient = {}
+    for key in customer_file:
+        if key != '_state':
+            dataToSendToClient[key] = customer_file[key]
+    print(dataToSendToClient)
+    response = JsonResponse(dataToSendToClient)
     print('posted')
     print(response)
     return response
