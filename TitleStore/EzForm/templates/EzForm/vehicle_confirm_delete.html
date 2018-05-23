@@ -2,10 +2,12 @@
 
 {% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    <p>Are you sure you want to delete this customer's data?</p>
-    <input type="submit" value="Delete" />
-</form>
+<div class="row d-flex justify-content-center" style="padding-top: 20px">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure you want to delete this vehicle record?</p>
+        <input class="btn btn-primary" type="submit" value="Delete" />
+        <a class="btn btn-secondary" href="/vehicles" role="button">Cancel</a>
+    </form>
 
 {% endblock content %}
