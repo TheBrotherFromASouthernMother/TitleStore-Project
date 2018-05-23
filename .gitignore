@@ -1,2 +1,1 @@
-./TitleStore/EzForm/__pycache__/
-./TitleStore/TitleStore/__pycache__/
+*.pyc

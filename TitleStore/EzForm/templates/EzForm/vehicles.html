@@ -2,6 +2,28 @@
 
 {% block content %}
 
-<div>hey this is the vehicle page</div>
+<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
+    <div class="col-md-12 col-lg-6 d-flex justify-content-center">
+        <h2>Vehicles</h2>
+    </div>
+</div>
+
+{% if vehicle_list %}
+<div class="row">
+    <div class="col-12">
+        <div class="list-group">
+        {% for vehicle in vehicle_list %}
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">{{ vehicle.v_vin }}</p>
+                <small>View/Edit</small>
+            </div>
+        </a>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endif %}
 
 {% endblock content %}

@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from .models import Customer, Vehicle
 
-from django.http import HttpRequest
+#from django.http import HttpRequest
 
 from django.db import models
 
@@ -27,7 +27,9 @@ def customers(request):
     return render(request, 'EzForm/customers.html', context)
 
 def vehicles(request):
-    return render(request, 'EzForm/vehicles.html')
+    all_vehicles = Vehicle.objects.order_by('v_vin')
+    context = {'vehicle_list' : all_vehicles }
+    return render(request, 'EzForm/vehicles.html', context)
 
 
 
@@ -53,7 +55,9 @@ def forms(request):
 
 def person(request, person_name):
     # @csrf_protect
-    response = JsonResponse({'greeting': 'Hello' + person_name + "!"})
+    customers_on_file = people.objects.filter(person_name=person_name)
+    print(customers_on_file)
+    response = JsonResponse({'': 'Hello' + person_name + "!"})
     print('posted')
     print(response)
     return response

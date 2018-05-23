@@ -2,16 +2,28 @@
 
 {% block content %}
 
-<div>hey this is the customer page</div>
+<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
+    <div class="col-md-12 col-lg-6 d-flex justify-content-center">
+        <h2>Customers</h2>
+    </div>
+</div>
 
-<!-- {% if customer_list %}
-    <ul>
-        {% for person in customer_list %}
-        <li>
-            {{ person.cu_last_name }}, {{ person.cu_first_name }}
-        </li>
+{% if customer_list %}
+<div class="row">
+    <div class="col-12">
+        <div class="list-group">
+        {% for customer in customer_list %}
+        <a href="{% url 'customer:record' customer.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">{{ customer.cu_last_name }}, {{ customer.cu_first_name }}</p>
+                <small>View/Edit</small>
+            </div>
+        </a>
         {% endfor %}
-    </ul>
-{% endif %} -->
+        </div>
+    </div>
+</div>
+
+{% endif %}
 
 {% endblock content %}
