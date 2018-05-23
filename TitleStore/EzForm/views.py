@@ -37,15 +37,15 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 # Create your views here.
-def detail(request):
+def customer_review(request):
     if request.method == 'GET':
         template = loader.get_template('EzForm/formReview.html')
         context = {
             'customers': []
         }
-        customers_on_file = people.objects.filter()
+        customers_on_file = Customer.objects.filter()
         for customer in customers_on_file:
-            context['customers'].append(customer.person_name)
+            context['customers'].append(customer.cu_last_name + ', ' + customer.cu_first_name)
 
         return HttpResponse(template.render(context, request))
 
@@ -53,9 +53,12 @@ def detail(request):
 def forms(request):
     return render(request, 'EzForm/forms.html')
 
-def person(request, person_name):
-
-    customers_on_file = people.objects.get(person_name=person_name)
+def customer_info_to_review(request, cu_name):
+    cumstomer_query = cu_name.split(', ')
+    print(cumstomer_query[0])
+    cu_last_name = cumstomer_query[0]
+    cu_first_name = cumstomer_query[1]
+    customers_on_file = Customer.objects.get(cu_last_name=cu_last_name, cu_first_name=cu_first_name)
     print(customers_on_file.__dict__)
     customer_file = customers_on_file.__dict__
     dataToSendToClient = {}
