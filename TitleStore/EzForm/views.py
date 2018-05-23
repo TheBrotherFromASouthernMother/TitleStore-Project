@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 # from .models import people
 
 from django.template import loader
@@ -26,7 +26,7 @@ def customers(request):
     return render(request, 'EzForm/customers.html', context)
 
 def vehicles(request):
-    all_vehicles = Vehicle.objects.order_by('v_vin')
+    all_vehicles = Vehicle.objects.order_by('Customer')
     context = {'vehicle_list' : all_vehicles }
     return render(request, 'EzForm/vehicles.html', context)
 

@@ -20,9 +20,11 @@
         <div class="list-group">
         {% for customer in customer_list %}
         <div class="list-group-item flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <p class="mb-1">{{ customer.cu_last_name }}, {{ customer.cu_first_name }}</p>
-                <div>
+            <div class="d-flex row">
+                <div class="col-sm-6 col-xs-12">
+                    <p class="mb-1">{{ customer.cu_last_name }}, {{ customer.cu_first_name }}</p>
+                </div>
+                <div class="col-sm-6 col-xs-12">
                     <button type="button" class="btn btn-secondary btn-sm btn-edit" customer-id="{{ customer.id }}">View/Edit</button>
                     <button type="button" class="btn btn-secondary btn-sm btn-delete" customer-id="{{ customer.id }}">Delete</button>
                 </div>

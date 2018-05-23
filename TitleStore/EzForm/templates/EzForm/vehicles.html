@@ -20,9 +20,11 @@
         <div class="list-group">
         {% for vehicle in vehicle_list %}
         <div class="list-group-item flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <p class="mb-1">{{ vehicle.Customer }} — {{ vehicle.v_make }} {{ vehicle.v_model }} ({{ vehicle.v_vin }})</p>
-                <div>
+            <div class="row d-flex">
+                <div class="col-md-8 col-sm-12">
+                    <p class="mb-1">{{ vehicle.Customer }} — {{ vehicle.v_make }} {{ vehicle.v_model }} ({{ vehicle.v_vin }})</p>
+                </div>
+                <div class="col-md-4 col-sm-12">
                     <button type="button" class="btn btn-secondary btn-sm btn-edit" vehicle-id="{{ vehicle.id }}">View/Edit</button>
                     <button type="button" class="btn btn-secondary btn-sm btn-delete" vehicle-id="{{ vehicle.id }}">Delete</button>
                 </div>
