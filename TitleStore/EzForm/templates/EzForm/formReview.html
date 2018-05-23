@@ -11,15 +11,16 @@
         </div>
     </form>
 
+    <form class="" action="makeacctpdf" method="post">
 
-    <script
-  src="http://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+    </form>
+
 
     <script type="text/javascript">
+
       let dropdownButtons = document.querySelectorAll('.dropdown-item')
       let box = document.querySelector('.box')
+
       dropdownButtons.forEach( button => {
         button.addEventListener('click', (e) => {
           let customer_name = button.textContent;
@@ -27,7 +28,6 @@
           var headers = new Headers();
           console.log(headers.get('X-CSRFToken'))
           headers.append('X-CSRFToken', csrftoken);
-          alert( `You clicked a button ${customer_name}`)
           fetch(`/customer_info_to_review/${customer_name}/`, {
             method: 'POST',
             credentials: 'include',
