@@ -6,12 +6,12 @@ from django.template import loader
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Customer, Vehicle
+from .models import Customer, Vehicle, AcctForm
 
 from django.http import HttpRequest
 
 from django.db import models
-from django.views.generic.edit import CreateView, DeleteView,
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import people
 from django.views.decorators.csrf import csrf_exempt
@@ -59,6 +59,7 @@ def person(request, person_name):
 class CustomerCreate(CreateView):
     model = Customer
     fields = '__all__'
+    template_name_suffix = '_create_form'
 
 class CustomerDelete(DeleteView):
     model = Customer
@@ -67,10 +68,12 @@ class CustomerDelete(DeleteView):
 class CustomerUpdate(UpdateView):
     model = Customer
     fields = '__all__'
+    template_name_suffix = '_update_form'
 
 class VehicleCreate(UpdateView):
     model = Vehicle
     fields = '__all__'
+    template_name_suffix = '_create_form'
 
 class VehicleDelete(DeleteView):
     model = Vehicle
@@ -79,3 +82,18 @@ class VehicleDelete(DeleteView):
 class VehicleUpdate(UpdateView):
     model = Vehicle
     fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class AcctFormCreate(CreateView):
+    model = AcctForm
+    fields = '__all__'
+    template_name_suffix = '_create_form'
+
+class AcctFormDelete(DeleteView):
+    model = AcctForm
+    success_url = 'index' # check for correct url
+
+class AcctFormUpdate(UpdateView):
+    model = AcctForm
+    fields = '__all__'
+    template_name_suffix = '_update_form'
