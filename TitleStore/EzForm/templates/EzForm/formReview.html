@@ -11,24 +11,31 @@
         </div>
     </form>
 
-    <form class="" action="makeacctpdf" method="post">
+    <!-- TODO: --> add JSON fields to input fields
+
+    <form class="review-info" action="makeacctpdf" method="post">
+      <input type="text" name="cu_last_name" value="">
+      <input type="text" name="cu_date_added" value="">
+      <input type="text" name="cu_date_last_changed" value="">
       <input type="text" name="" value="">
-      <button type="button" name="button" class="info-submit"></button>
+      <input type="text" name="" value="">
+      <input type="text" name="" value="">
+      <button type="button" name="button" class="info-submit"> I am button</button>
     </form>
 
 
     <script type="text/javascript">
-     let customerInfo = null;
       let dropdownButtons = document.querySelectorAll('.dropdown-item')
       let box = document.querySelector('.box')
-      var csrftoken = getCookie('csrftoken');
-      var headers = new Headers();
-      console.log(headers.get('X-CSRFToken'))
+      let reviewInfoForm = document.querySelector('.review-info')
+      let reviewInfoFormInputs = document.querySelectorAll('.review-info input')
+      let submitToPDFButton = document.querySelector('.info-submit');
 
       dropdownButtons.forEach( button => {
         button.addEventListener('click', (e) => {
           let customer_name = button.textContent;
-          console.log(customer_name)
+          let csrftoken = getCookie('csrftoken');
+          let headers = new Headers();
           headers.append('X-CSRFToken', csrftoken);
           fetch(`/customer_info_to_review/${customer_name}/`, {
             method: 'POST',
@@ -38,20 +45,29 @@
             return data.json()
           }).then( data => {
             console.log(data)
-            customerInfo = data
+            fillForm(data, reviewInfoFormInputs)
+
           }).catch( err => {
             console.log(err)
           })
         })
       })
 
-      let submitToPDFButton = document.querySelector('.info-submit');
+
       submitToPDFButton.addEventListener('click', (e) => {
+        let reviewedCustomerInfo = {};
+        reviewInfoFormInputs.forEach( input => {
+          let key = input.getAttribute('name');
+          reviewedCustomerInfo[key] = input.value;
+        })
+        let csrftoken = getCookie('csrftoken');
+        let headers = new Headers();
+        headers.append('X-CSRFToken', csrftoken);
         fetch('/makeAcctPdf/', {
           method: 'POST',
           credentials: 'include',
           headers: headers,
-          body: JSON.stringify(customerInfo)
+          body: JSON.stringify(reviewedCustomerInfo)
         }).then( data => {
           return data.json()
         }).then( data => {
@@ -76,6 +92,18 @@
         }
     }
     return "";
+  }
+
+  function fillForm(info, inputs) {
+    let i = 0
+    for (key in info) {
+      inputs[i].value = info[key];
+      console.log(inputs.length, 'rawwar')
+      if(i === inputs.length) {
+        break;
+      }
+      i ++;
+    }
   }
     </script>
 
