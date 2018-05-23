@@ -2,11 +2,14 @@
 
 {% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    <h3>View or update the customer profile below.</h3>
-    {{ form.as_p }}
-    <input type="submit" value="Save" />
-</form>
+<div class="row d-flex justify-content-center" style="padding-top: 20px">
+    <form method="POST">
+        {% csrf_token %}
+        <h3>View or update the customer profile below.</h3>
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Save" />
+        <a class="btn btn-secondary" href="/customers" role="button">Cancel</a>
+    </form>
+</div>
 
 {% endblock content %}

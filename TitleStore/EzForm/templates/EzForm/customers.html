@@ -8,22 +8,46 @@
     </div>
 </div>
 
+<div class="row" style="padding-bottom: 20px">
+    <div class="col-12 d-flex justify-content-end">
+        <button type="button" class="btn btn-primary btn-add">+ Add New Customer</button>
+    </div>
+</div>
+
 {% if customer_list %}
 <div class="row">
     <div class="col-12">
         <div class="list-group">
         {% for customer in customer_list %}
-        <a href="{% url 'customer:record' customer.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="list-group-item flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <p class="mb-1">{{ customer.cu_last_name }}, {{ customer.cu_first_name }}</p>
-                <small>View/Edit</small>
+                <div>
+                    <button type="button" class="btn btn-secondary btn-sm btn-edit" customer-id="{{ customer.id }}">View/Edit</button>
+                    <button type="button" class="btn btn-secondary btn-sm btn-delete" customer-id="{{ customer.id }}">Delete</button>
+                </div>
             </div>
-        </a>
+        </div>
         {% endfor %}
         </div>
     </div>
 </div>
 
 {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(".btn-edit").click( function() {
+        let cuId = $(this).attr("customer-id");
+        window.location.href = "/customer/" + cuId;
+    });
+    $(".btn-delete").click( function() {
+        let cuId = $(this).attr("customer-id");
+        window.location.href = "/customer/" + cuId + "/delete";
+    });
+    $(".btn-add").click( function() {
+        window.location.href = "/customer/create";
+    });
+</script>
 
 {% endblock content %}

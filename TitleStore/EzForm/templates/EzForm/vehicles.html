@@ -8,22 +8,46 @@
     </div>
 </div>
 
+<div class="row" style="padding-bottom: 20px">
+    <div class="col-12 d-flex justify-content-end">
+        <button type="button" class="btn btn-primary btn-add">+ Add New Vehicle</button>
+    </div>
+</div>
+
 {% if vehicle_list %}
 <div class="row">
     <div class="col-12">
         <div class="list-group">
         {% for vehicle in vehicle_list %}
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="list-group-item flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-                <p class="mb-1">{{ vehicle.v_vin }}</p>
-                <small>View/Edit</small>
+                <p class="mb-1">{{ vehicle.Customer }} — {{ vehicle.v_make }} {{ vehicle.v_model }} ({{ vehicle.v_vin }})</p>
+                <div>
+                    <button type="button" class="btn btn-secondary btn-sm btn-edit" vehicle-id="{{ vehicle.id }}">View/Edit</button>
+                    <button type="button" class="btn btn-secondary btn-sm btn-delete" vehicle-id="{{ vehicle.id }}">Delete</button>
+                </div>
             </div>
-        </a>
+        </div>
         {% endfor %}
         </div>
     </div>
 </div>
 
 {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(".btn-edit").click( function() {
+        let vId = $(this).attr("vehicle-id");
+        window.location.href = "/vehicle/" + vId;
+    });
+    $(".btn-delete").click( function() {
+        let vId = $(this).attr("vehicle-id");
+        window.location.href = "/vehicle/" + vId + "/delete";
+    });
+    $(".btn-add").click( function() {
+        window.location.href = "/vehicle/create";
+    });
+</script>
 
 {% endblock content %}
