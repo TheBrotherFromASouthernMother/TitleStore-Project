@@ -16,23 +16,23 @@ def makePdf(data): # data passed in from form
 
     pdf = FPDF('P', 'mm', 'letter') # paragraph oriented, millimeters measured, letter page sized
     pdf.set_margins(0, 0, 0)
-    pdf.add_page(same=True) # sets page added to FPDF object to same parameters
+    pdf.add_page('P', 'letter', True) # sets page added to FPDF object to same parameters
     pdf.set_font('Arial', '', 12) # font, style ('' means normal), 12pt
 
     ### test dictionary for overlay data
     ### WORKS
 
-    vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
-    vehicle_year = data['v_year'] # vehicle year
-    vehicle_make = data['v_make'] # vehicle make
-    vehicle_style = data['v_style'] # vehicle body style
-    vehicle_model = data['v_model'] # vehicle model
+    # vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
+    # vehicle_year = data['v_year'] # vehicle year
+    # vehicle_make = data['v_make'] # vehicle make
+    # vehicle_style = data['v_style'] # vehicle body style
+    # vehicle_model = data['v_model'] # vehicle model
             
-    vehicle_title_no = data['v_title'] # vehicle title/document number
-    vehicle_plate_number = data['v_plate_number'] # TX license plate number
+    # vehicle_title_no = data['v_title'] # vehicle title/document number
+    # vehicle_plate_number = data['v_plate_number'] # TX license plate number
             
-    applicant_name = data['applicant_name'] # applicant name
-    second_applicant_name = data['second_applicant_name'] # additional applicant name
+    # applicant_name = data['applicant_name'] # applicant name
+    # second_applicant_name = data['second_applicant_name'] # additional applicant name
     date = '' # date above, date below
 
     recipient_first_name = data['cu_first_name'] # receipient first name
