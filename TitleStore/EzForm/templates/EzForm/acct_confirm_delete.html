@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<form method="POST">
-    {% csrf_token %}
-    <p>Are you sure you want to delete this form's data?</p>
-    <input type="submit" value="Delete" />
-</form>
-
+    <div class="row d-flex justify-content-center" style="padding-top: 20px">
+        <form method="POST">
+            {% csrf_token %}
+            <p>Are you sure you want to delete this form record?</p>
+            <input class="btn btn-primary" type="submit" value="Delete" />
+            <a class="btn btn-secondary" href="/forms" role="button">Cancel</a>
+        </form>
+    </div>
 {% endblock content %}
