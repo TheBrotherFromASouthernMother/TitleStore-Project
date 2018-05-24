@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from EzForm.views import CustomerCreate, CustomerUpdate, CustomerDelete, VehicleCreate, VehicleDelete, VehicleUpdate, AcctFormCreate, AcctFormDelete, AcctFormUpdate
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('customer_review/', views.customer_review, name='customer_review'),

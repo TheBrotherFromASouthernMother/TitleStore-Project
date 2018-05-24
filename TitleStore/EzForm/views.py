@@ -78,6 +78,14 @@ class CustomerDelete(DeleteView):
 
 class CustomerUpdate(UpdateView):
     model = Customer
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(CustomerUpdate, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['vehicle_list'] = Vehicle.objects.all()
+        return context
+
     fields = '__all__'
     template_name_suffix = '_update_form'
     success_url = '/customers/'
@@ -117,18 +125,21 @@ def makeAcctPdf(request):
         body = json.loads(request.body)
         print(body)
         c_id = body['id']
-        # print(type(c_id))
-        # c_id = int(c_id)
+
         #TODO: redirect user to PDF page
+    try:
         # acct_form_filler.makePdf(data=body)
         acct_pdf_maker(data=body) # sends POST data to make pdf
-        
-    # try:
+
         #TODO: save to DB, and
         acct_form = AcctForm(**body)
         acct_form.save()
         customer = Customer.objects.filter(id=c_id).update(**body)
 
+        return JsonResponse({'successMessage': 'Record updated'})
+    except (RuntimeError, TypeError, NameError):
+        print(RuntimeError)
+        return JsonResponse({'errorMessage': 'There was no record found matching the customer id: ' + c_id + ' please try again.'})
         print(customer)
 
 
@@ -139,7 +150,5 @@ def makeAcctPdf(request):
         except FileNotFoundError:
             raise Http404()
 
+
     return pdf_view()
-    # except:
-    #     print('no record found')
-    # return JsonResponse({'greet': 'G\'day mate'})

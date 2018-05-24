@@ -8,10 +8,11 @@ def makePdf(data): # data passed in from form
     # declare location of PDFs to use
     overlay_pdf_file_name = 'overlay_PDF.pdf' # textOverSuccess.pdf
     pdf_template_file_name = 'acct_background.pdf' # base_PDF_template
-    
-    result_pdf_file_name = 'result_form.pdf'
+
+    #TODO: Change data to bracket notation so Python will stop complaining
+    result_pdf_file_name = 'result_form' + data['cu_last_name'] + '.pdf'
     # result_pdf_file_name = "./pdfs/" + data['person_name'] + ".pdf"
-    
+
 
     pdf = FPDF('P', 'mm', 'letter') # paragraph oriented, millimeters measured, letter page sized
     pdf.set_margins(0, 0, 0)
@@ -23,7 +24,7 @@ def makePdf(data): # data passed in from form
 
     vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
     vehicle_year = data['v_year'] # vehicle year
-    vehicle_make = data[v_make] # vehicle make
+    vehicle_make = data['v_make'] # vehicle make
     vehicle_style = data['v_style'] # vehicle body style
     vehicle_model = data['v_model'] # vehicle model
             
@@ -54,10 +55,10 @@ def makePdf(data): # data passed in from form
         vehicle_make = 'Affordy' # vehicle make
         vehicle_style = 'Stylo' # vehicle body style
         vehicle_model = 'Edsel' # vehicle model
-                
+
         vehicle_title_no = '1234567890' # vehicle title/document number
         vehicle_license = 'DLR-J3L2' # TX license plate number
-                
+
         data['person_name'] = 'Bob' # customer name
         second_customer_name = 'Cat' # additional customer name
 
@@ -92,12 +93,14 @@ def makePdf(data): # data passed in from form
             { 'x': 127, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
             { 'x': 150, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
             { 'x': 173, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
-            
+
             { 'x': 6, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
             { 'x': 102, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
-            
+
+
             { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': applicant_name }, # applicant name
             { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_applicant_name }, # additional applicant name
+
 
             { 'x': 170, 'y': 175, 'w': 22, 'h': 5, 'value': date }, # date above
             { 'x': 170, 'y': 189, 'w': 22, 'h': 5, 'value': date }, # date below
@@ -130,10 +133,10 @@ def makePdf(data): # data passed in from form
             { 'x': 127, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
             { 'x': 150, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
             { 'x': 173, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
-            
+
             { 'x': 6, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
             { 'x': 102, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
-            
+
             { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': customerData['person_name'] }, # customer name
             { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_customer_name }, # additional customer name
 
