@@ -1,7 +1,7 @@
 
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect,  HttpRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect, HttpRequest, Http404
 
 from django.template import loader
 
@@ -133,13 +133,13 @@ def makeAcctPdf(request):
 
 
     # pdf should be already made when this is called
-    def pdf_view(request):
+    def pdf_view():
         try:
             return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
         except FileNotFoundError:
             raise Http404()
 
-    return pdf_view(request)
+    return pdf_view()
     # except:
     #     print('no record found')
     # return JsonResponse({'greet': 'G\'day mate'})
