@@ -2,10 +2,11 @@
 {% load widget_tweaks %}
 
 {% block content %}
+<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
 
 <form method="POST">
     {% csrf_token %}
-    <h3>Create a new customer profile below.</h3>
+    <h3 style="padding-top: 20px; padding-bottom: 20px">Create a new customer profile below.</h3>
     {% for hidden in form.hidden_fields %}
     {{ hidden }}
     {% endfor %}
@@ -23,4 +24,5 @@
     <a class="btn btn-secondary" href="/vehicles" role="button">Cancel</a>
 </form>
 
+</div>
 {% endblock content %}

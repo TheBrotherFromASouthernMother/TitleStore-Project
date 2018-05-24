@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from .models import Customer, Vehicle, AcctForm
 
 from django.db import models
-from django.views.generic.edit import CreateView, DeleteView, UpdateView, ModelFormMixin
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 import json
 
@@ -80,18 +80,23 @@ class CustomerDelete(DeleteView):
 
 class CustomerUpdate(UpdateView):
     model = Customer
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(CustomerUpdate, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['vehicle_list'] = Vehicle.objects.all()
+        return context
+
     fields = '__all__'
     template_name_suffix = '_update_form'
     success_url = '/customers/'
 
 
-# from .forms import MyForm
-# class MyUpdateView(UpdateView):
-#     def get(self, request, *args, **kwargs):
-#         view = CustomerUpdate.as_view()
-#         return view(request, *args, **kwargs)
-
     
+
+
+
 
 class VehicleCreate(UpdateView):
     model = Vehicle

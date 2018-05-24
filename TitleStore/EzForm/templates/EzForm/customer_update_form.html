@@ -3,10 +3,12 @@
 
 {% block content %}
 
-<div class="row d-flex justify-content-center" style="padding-top: 20px">
+vehicles: {{vehicle_list}}
+
+<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
     <form method="POST">
         {% csrf_token %}
-        <h3>View or update the customer profile below.</h3>
+        <h3 style="padding-top: 20px; padding-bottom: 20px">View or update the customer profile below.</h3>
 
 
         {% for hidden in form.hidden_fields %}
