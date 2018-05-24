@@ -10,30 +10,30 @@ def makePdf(data): # data passed in from form
     pdf_template_file_name = 'acct_background.pdf' # base_PDF_template
 
     #TODO: Change data to bracket notation so Python will stop complaining
-    result_pdf_file_name = 'result_form' + data['cu_last_name'] + '.pdf'
+    result_pdf_file_name = 'result_form.pdf'
     # result_pdf_file_name = "./pdfs/" + data['person_name'] + ".pdf"
 
 
     pdf = FPDF('P', 'mm', 'letter') # paragraph oriented, millimeters measured, letter page sized
     pdf.set_margins(0, 0, 0)
-    pdf.add_page(same=True) # sets page added to FPDF object to same parameters
+    pdf.add_page() # sets page added to FPDF object to same parameters
     pdf.set_font('Arial', '', 12) # font, style ('' means normal), 12pt
 
     ### test dictionary for overlay data
     ### WORKS
-
-    vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
-    vehicle_year = data['v_year'] # vehicle year
-    vehicle_make = data['v_make'] # vehicle make
-    vehicle_style = data['v_style'] # vehicle body style
-    vehicle_model = data['v_model'] # vehicle model
-            
-    vehicle_title_no = data['v_title'] # vehicle title/document number
-    vehicle_plate_number = data['v_plate_number'] # TX license plate number
-            
-    applicant_name = data['applicant_name'] # applicant name
-    second_applicant_name = data['second_applicant_name'] # additional applicant name
-    date = '' # date above, date below
+    #
+    # vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
+    # vehicle_year = data['v_year'] # vehicle year
+    # vehicle_make = data['v_make'] # vehicle make
+    # vehicle_style = data['v_style'] # vehicle body style
+    # vehicle_model = data['v_model'] # vehicle model
+    #
+    # vehicle_title_no = data['v_title'] # vehicle title/document number
+    # vehicle_plate_number = data['v_plate_number'] # TX license plate number
+    #
+    # applicant_name = data['applicant_name'] # applicant name
+    # second_applicant_name = data['second_applicant_name'] # additional applicant name
+    # date = '' # date above, date below
 
     recipient_first_name = data['cu_first_name'] # receipient first name
     recipient_middle_name = data['cu_middle_name'] # recipient middle name
@@ -46,7 +46,7 @@ def makePdf(data): # data passed in from form
     zip_code = data['cu_zip'] # zip
 
     email = data['cu_email'] # email
-    phone = data['cu_phone'] # phone number
+    phone = data['cu_phone_primary'] # phone number
 
 
     '''
@@ -88,60 +88,22 @@ def makePdf(data): # data passed in from form
     form_dictionary = {
         'form': 'ACCT', # form_type
         'data': [
-            { 'x': 6, 'y': 140, 'w': 94, 'h': 5, 'value': vehicle_vin }, # customer name ### COORDS BELONG TO VIN
-            { 'x': 102, 'y': 140, 'w': 23, 'h': 5, 'value': vehicle_year }, # vehicle year
-            { 'x': 127, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
-            { 'x': 150, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
-            { 'x': 173, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
-
-            { 'x': 6, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
-            { 'x': 102, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
-
-
-            { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': applicant_name }, # applicant name
-            { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_applicant_name }, # additional applicant name
-
-
-            { 'x': 170, 'y': 175, 'w': 22, 'h': 5, 'value': date }, # date above
-            { 'x': 170, 'y': 189, 'w': 22, 'h': 5, 'value': date }, # date below
-
-            { 'x': 6, 'y': 209, 'w': 73, 'h': 5, 'value': recipient_first_name }, # receipient first name
-            { 'x': 80, 'y': 209, 'w': 46, 'h': 5, 'value': recipient_middle_name }, # recipient middle name
-            { 'x': 127, 'y': 209, 'w': 46, 'h': 5, 'value': recipient_last_name }, # receipient last name
-            { 'x': 174, 'y': 209, 'w': 21, 'h': 5, 'value': recipient_suffix }, # receipient name suffix
-
-            { 'x': 6, 'y': 218, 'w': 73, 'h': 5, 'value': address }, # mailing address
-            { 'x': 80, 'y': 218, 'w': 80, 'h': 5, 'value': city }, # city
-            { 'x': 127, 'y': 218, 'w': 46, 'h': 5, 'value': state }, # state
-            { 'x': 174, 'y': 218, 'w': 22, 'h': 5, 'value': zip_code }, # zip
-
-            { 'x': 6, 'y': 227, 'w': 22, 'h': 5, 'value': email }, # email
-            { 'x': 103, 'y': 227, 'w': 22, 'h': 5, 'value': phone }, # phone number
-        ]
-    }
-
-
-
-
-
-    '''
-    {
-        'form': 'ACCT',
-        'data': [
-            { 'x': 6, 'y': 140, 'w': 94, 'h': 5, 'value': vehicle_vin }, # customer name ### COORDS BELONG TO VIN
-            { 'x': 102, 'y': 140, 'w': 23, 'h': 5, 'value': year }, # vehicle year
-            { 'x': 127, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
-            { 'x': 150, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
-            { 'x': 173, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
-
-            { 'x': 6, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
-            { 'x': 102, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
-
-            { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': customerData['person_name'] }, # customer name
-            { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_customer_name }, # additional customer name
-
-            { 'x': 170, 'y': 175, 'w': 22, 'h': 5, 'value': date }, # date above
-            { 'x': 170, 'y': 189, 'w': 22, 'h': 5, 'value': date }, # date below
+            # { 'x': 6, 'y': 140, 'w': 94, 'h': 5, 'value': vehicle_vin }, # customer name ### COORDS BELONG TO VIN
+            # { 'x': 102, 'y': 140, 'w': 23, 'h': 5, 'value': vehicle_year }, # vehicle year
+            # { 'x': 127, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
+            # { 'x': 150, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
+            # { 'x': 173, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
+            #
+            # { 'x': 6, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
+            # { 'x': 102, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
+            #
+            #
+            # { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': applicant_name }, # applicant name
+            # { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_applicant_name }, # additional applicant name
+            #
+            #
+            # { 'x': 170, 'y': 175, 'w': 22, 'h': 5, 'value': date }, # date above
+            # { 'x': 170, 'y': 189, 'w': 22, 'h': 5, 'value': date }, # date below
 
             { 'x': 6, 'y': 209, 'w': 73, 'h': 5, 'value': recipient_first_name }, # receipient first name
             { 'x': 80, 'y': 209, 'w': 46, 'h': 5, 'value': recipient_middle_name }, # recipient middle name
@@ -157,27 +119,65 @@ def makePdf(data): # data passed in from form
             { 'x': 103, 'y': 227, 'w': 22, 'h': 5, 'value': phone }, # phone number
         ]
     }
-    '''
-    ''' previous test dictionary
-    form_dictionary = {
-        'Vehicle Identification Number': 'TEST VIN #',
-        'Year': 'TEST 1999',
-        'Make': 'TES Cake',
-        'Body Style': 'TEST Being There',
-        'Model': 'TEST Modal',
-        'TitleDocument Number if unknown leave blank': 'TEST 111 111',
-        'Texas License Plate Number if unknown leave blank': 'TEST 12AS3F',
-        'Printed Name of Applicant Owner': 'TEST FIRSTNAME',
-        'Date': 'TEST TODAY',
-        'Additional Applicant Owner': 'TEST NONE',
-        'Date_2': 'TEST TODAY',
-        'First Name or Entity Name Middle Name Last Name Suffix if any': 'TEST ENTITY MIDDLE',
-        'Mailing Address City State Zip': 'TEST 123 FAKE ST',
 
-        'Email': 'TEST GABBA@HEY.COM',
-        'Phone Number': 'TEST 123-123-1234'
-    }
-    '''
+
+
+
+
+    # '''
+    # {
+    #     'form': 'ACCT',
+    #     'data': [
+    #         { 'x': 6, 'y': 140, 'w': 94, 'h': 5, 'value': vehicle_vin }, # customer name ### COORDS BELONG TO VIN
+    #         { 'x': 102, 'y': 140, 'w': 23, 'h': 5, 'value': year }, # vehicle year
+    #         { 'x': 127, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
+    #         { 'x': 150, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
+    #         { 'x': 173, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
+    #
+    #         { 'x': 6, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
+    #         { 'x': 102, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
+    #
+    #         { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': customerData['person_name'] }, # customer name
+    #         { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_customer_name }, # additional customer name
+    #
+    #         { 'x': 170, 'y': 175, 'w': 22, 'h': 5, 'value': date }, # date above
+    #         { 'x': 170, 'y': 189, 'w': 22, 'h': 5, 'value': date }, # date below
+    #
+    #         { 'x': 6, 'y': 209, 'w': 73, 'h': 5, 'value': recipient_first_name }, # receipient first name
+    #         { 'x': 80, 'y': 209, 'w': 46, 'h': 5, 'value': recipient_middle_name }, # recipient middle name
+    #         { 'x': 127, 'y': 209, 'w': 46, 'h': 5, 'value': recipient_last_name }, # receipient last name
+    #         { 'x': 174, 'y': 209, 'w': 21, 'h': 5, 'value': recipient_suffix }, # receipient name suffix
+    #
+    #         { 'x': 6, 'y': 218, 'w': 73, 'h': 5, 'value': address }, # mailing address
+    #         { 'x': 80, 'y': 218, 'w': 80, 'h': 5, 'value': city }, # city
+    #         { 'x': 127, 'y': 218, 'w': 46, 'h': 5, 'value': state }, # state
+    #         { 'x': 174, 'y': 218, 'w': 22, 'h': 5, 'value': zip_code }, # zip
+    #
+    #         { 'x': 6, 'y': 227, 'w': 22, 'h': 5, 'value': email }, # email
+    #         { 'x': 103, 'y': 227, 'w': 22, 'h': 5, 'value': phone }, # phone number
+    #     ]
+    # }
+    # '''
+    # ''' previous test dictionary
+    # form_dictionary = {
+    #     'Vehicle Identification Number': 'TEST VIN #',
+    #     'Year': 'TEST 1999',
+    #     'Make': 'TES Cake',
+    #     'Body Style': 'TEST Being There',
+    #     'Model': 'TEST Modal',
+    #     'TitleDocument Number if unknown leave blank': 'TEST 111 111',
+    #     'Texas License Plate Number if unknown leave blank': 'TEST 12AS3F',
+    #     'Printed Name of Applicant Owner': 'TEST FIRSTNAME',
+    #     'Date': 'TEST TODAY',
+    #     'Additional Applicant Owner': 'TEST NONE',
+    #     'Date_2': 'TEST TODAY',
+    #     'First Name or Entity Name Middle Name Last Name Suffix if any': 'TEST ENTITY MIDDLE',
+    #     'Mailing Address City State Zip': 'TEST 123 FAKE ST',
+    #
+    #     'Email': 'TEST GABBA@HEY.COM',
+    #     'Phone Number': 'TEST 123-123-1234'
+    # }
+    # '''
 
 
 
@@ -193,7 +193,7 @@ def makePdf(data): # data passed in from form
 
     ### this takes the overlay data and merges it with the watermark template
     ### WORKS
-    with open("./static/acct_background.pdf", 'rb') as pdf_template_file, open(overlay_pdf_file_name, 'rb') as overlay_PDF_file:
+    with open("./EzForm/static/acct_background.pdf", 'rb') as pdf_template_file, open(overlay_pdf_file_name, 'rb') as overlay_PDF_file:
         # open watermark template pdf object
         pdf_template = PdfFileReader(pdf_template_file)
         # open overlay data pdf object
