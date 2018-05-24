@@ -117,13 +117,12 @@ def makeAcctPdf(request):
         body = json.loads(request.body)
         print(body)
         c_id = body['id']
-        # print(type(c_id))
-        # c_id = int(c_id)
+
         #TODO: redirect user to PDF page
-    # try:
+    try:
         #TODO: save to DB, and
         customer = Customer.objects.filter(id=c_id).update(**body)
-        print(customer)
-    # except:
-    #     print('no record found')
-    return JsonResponse({'greet': 'G\'day mate'})
+        return JsonResponse({'successMessage': 'Record updated'})
+    except:
+        print('no record found')
+        return JsonResponse({'errorMessage': 'There was no record found matching the customer id: ' + c_id + ' please try again.'})
