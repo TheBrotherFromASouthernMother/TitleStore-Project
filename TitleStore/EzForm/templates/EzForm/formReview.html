@@ -2,225 +2,233 @@
 
 {% block content %}
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown button </button>
+  <div class="row d-flex justify-content-between" style="padding-top: 20px; padding-bottom: 20px">
+
+    <div class="col-sm-12 col-md-4" style="padding: 10px;">
+      <div class="dropdown" style="padding-top: 20px; padding-bottom: 20px">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a Customer</button>
         <div class="dropdown-content dropdown-menu">
           {% for customer in customers %}
           <button type="button" name="button" class="dropdown-item">{{customer}}</button>
           {% endfor %}
         </div>
-</div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-8" style="padding: 10px;">
     <!-- TODO add JSON fields to input fields -->
+      <form class="review-info" action="makeacctpdf" method="post" style="margin-top: 2%;">
+        <h2 style="padding-top: 20px; padding-bottom: 20px">Review Customer Info</h2>
+        
+        <div class="form-group">
+          <label for="id">Customer ID</label>
+          <input class="form-control" type="text" name="id" value="" readonly="readonly">
+        </div>
 
-    <form class="review-info" action="makeacctpdf" method="post" style="margin-top: 2%;">
-      <h2>Review Customer Info</h2>
-      <div class="form-group">
-        <label for="id">Customer ID</label>
-        <input type="text" name="id" value="" readonly="readonly">
-      </div>
+        <div class="form-group">
+          <label for="cu_date_added"> Date Added </label>
+          <input class="form-control" type="text" name="cu_date_added" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_date_added"> Date Added </label>
-        <input type="text" name="cu_date_added" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_date_last_changed"> Last Modified</label>
+          <input class="form-control" type="text" name="cu_date_last_changed" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_date_last_changed"> Last Modified</label>
-        <input type="text" name="cu_date_last_changed" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_last_name"> Last Name </label>
+          <input class="form-control" type="text" name="cu_last_name" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_last_name"> Last Name </label>
-        <input type="text" name="cu_last_name" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_first_name"> First Name </label>
+          <input class="form-control" type="text" name="cu_first_name" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_first_name"> First Name </label>
-        <input type="text" name="cu_first_name" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_middle_name"> Middle Name</label>
+          <input class="form-control" type="text" name="cu_middle_name" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_middle_name"> Middle Name</label>
-        <input type="text" name="cu_middle_name" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_suffix"> Suffix </label>
+          <input class="form-control" type="text" name="cu_suffix" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_suffix"> cu_suffix</label>
-        <input type="text" name="cu_suffix" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_email"> Email </label>
+          <input class="form-control" type="text" name="cu_email" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_email"> Email </label>
-        <input type="text" name="cu_email" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_address_line_1"> Address Line 1 </label>
+          <input class="form-control" type="text" name="cu_address_line_1" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_address_line_1"> Adress Line 1 </label>
-        <input type="text" name="cu_address_line_1" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_address_line_2"> Adress Line 2</label>
+          <input class="form-control" type="text" name="cu_address_line_1" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_address_line_2"> Adress Line 2</label>
-        <input type="text" name="cu_address_line_1" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_city"> City</label>
+          <input class="form-control" type="text" name="cu_city" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_city"> City</label>
-        <input type="text" name="cu_city" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_state"> State/Province/District </label>
+          <input class="form-control" type="text" name="cu_state" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_state"> State/Province/District </label>
-        <input type="text" name="cu_state" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_zip"> ZIP Code </label>
+          <input class="form-control" type="text" name="cu_zip" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_zip"> ZIP Code </label>
-        <input type="text" name="cu_zip" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_country"> Country </label>
+          <input class="form-control" type="text" name="cu_country" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_country"> Country </label>
-        <input type="text" name="cu_country" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_county"> County</label>
+          <input class="form-control" type="text" name="cu_county" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_county"> County</label>
-        <input type="text" name="cu_county" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_phone_primary"> Primary Phone </label>
+          <input class="form-control" type="text" name="cu_phone_primary" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_phone_primary"> Primary Phone </label>
-        <input type="text" name="cu_phone_primary" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_photo_id_number"> Driver's License/ID Number</label>
+          <input class="form-control" type="text" name="cu_photo_id_number" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_photo_id_number"> Driver's License/ID Number</label>
-        <input type="text" name="cu_photo_id_number" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_photo_id_type"> ID Type</label>
+          <select class="form-control id-select" name="cu_photo_id_type">
+            <option value="DRIVERS_LICENSE">U.S. Driver's License/ID Card</option>
+            <option value="MILITARY_ID">U.S. Military ID</option>
+            <option value="DOJ_ID">U.S. Citizenship & Immigration Services/DOJ ID</option>
+            <option value="DOS_ID"> Department of State ID </option>
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="cu_photo_id_type"> ID Type</label>
-        <select class="id-select" name="cu_photo_id_type">
-          <option value="DRIVERS_LICENSE">U.S. Driver's License/ID Card</option>
-          <option value="MILITARY_ID">U.S. Military ID</option>
-          <option value="DOJ_ID">U.S. Citizenship & Immigration Services/DOJ ID</option>
-          <option value="DOS_ID"> Department of State ID </option>
-        </select>
-      </div>
+        <div class="form-group">
+          <label for="cu_photo_id_state"> ID State/Province/District</label>
+          <input class="form-control" type="text" name="cu_photo_id_state" value="">
+        </div>
 
-      <div class="form-group">
-        <label for="cu_photo_id_state"> ID State/Province/District</label>
-        <input type="text" name="cu_photo_id_state" value="">
-      </div>
+        <div class="form-group">
+          <label for="cu_flag_military"> Military personel stationed in Texas?</label>
+          <select class="form-control" name="cu_flag_military" id="id_cu_flag_military">
+            <option value="null">Unknown</option>
+            <option value="true">Yes</option>
+            <option value="false" >No</option>
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="cu_flag_military"> Military personel stationed in Texas?</label>
-        <select name="cu_flag_military" id="id_cu_flag_military">
-          <option value="null">Unknown</option>
-          <option value="true">Yes</option>
-          <option value="false" >No</option>
-        </select>
-      </div>
+        <button type="button" name="button" class="btn btn-primary info-submit">Make PDF</button>
+      </form>
 
-      <button type="button" name="button" class="info-submit"> Make PDF </button>
-    </form>
+    </div>
+  </div>
 
+<script type="text/javascript">
+  let dropdownButtons = document.querySelectorAll('.dropdown-item')
+  let reviewInfoForm = document.querySelector('.review-info')
+  let reviewInfoFormInputs = document.querySelectorAll('.review-info input, .review-info select')
+  let submitToPDFButton = document.querySelector('.info-submit');
 
-    <script type="text/javascript">
-      let dropdownButtons = document.querySelectorAll('.dropdown-item')
-      let reviewInfoForm = document.querySelector('.review-info')
-      let reviewInfoFormInputs = document.querySelectorAll('.review-info input, .review-info select')
-      let submitToPDFButton = document.querySelector('.info-submit');
+  dropdownButtons.forEach( button => {
+    button.addEventListener('click', (e) => {
+      let customer_name = button.textContent;
+      let csrftoken = getCookie('csrftoken');
+      let headers = new Headers();
+      headers.append('X-CSRFToken', csrftoken);
+      fetch(`/customer_info_to_review/${customer_name}/`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: headers
+      }).then( data => {
+        return data.json()
+      }).then( data => {
+        console.log(data)
+        reviewInfoForm.style.display = 'block';
+        fillForm(data, reviewInfoFormInputs)
+      }).catch( err => {
+        console.log(err)
+      })
+    })
+  })
 
-      dropdownButtons.forEach( button => {
-        button.addEventListener('click', (e) => {
-          let customer_name = button.textContent;
-          let csrftoken = getCookie('csrftoken');
-          let headers = new Headers();
-          headers.append('X-CSRFToken', csrftoken);
-          fetch(`/customer_info_to_review/${customer_name}/`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: headers
-          }).then( data => {
-            return data.json()
-          }).then( data => {
-            console.log(data)
-            reviewInfoForm.style.display = 'block';
-            fillForm(data, reviewInfoFormInputs)
-          }).catch( err => {
-            console.log(err)
+  submitToPDFButton.addEventListener('click', (e) => {
+    let reviewedCustomerInfo = {};
+    reviewInfoFormInputs.forEach( input => {
+      if (input.value) {
+        let key = input.getAttribute('name');
+        reviewedCustomerInfo[key] = input.value;
+      }
+    })
+    let csrftoken = getCookie('csrftoken');
+    let headers = new Headers();
+    headers.append('X-CSRFToken', csrftoken);
+    fetch('/makeAcctPdf/', {
+      method: 'POST',
+      credentials: 'include',
+      headers: headers,
+      body: JSON.stringify(reviewedCustomerInfo)
+    }).then( data => {
+      return data.json()
+    }).then( data => {
+      console.log(data)
+      customerInfo = data
+    }).catch( err => {
+      console.log(err)
+    })
+  })
+  //Taken from w3schools website for getting website cookies
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  }
+
+  function fillForm(info, inputs) {
+    let i = 0
+    for (key in info) {
+      if(i >= inputs.length) {
+        break;
+      }
+      if (info[key] == null) {
+        inputs[i].value = ""
+      } else if (inputs[i].nodeName === 'SELECT') {
+          inputs[i].childNodes.forEach( item => {
+            console.log(key, info[key])
+            if (item.nodeName == "OPTION" && item.value === info[key] || item.nodeName == "OPTION" && item.value == String(info[key])) {
+              console.log('rawer', item)
+              item.setAttribute('selected', 'selected')
+
+            }
           })
-        })
-      })
 
-      submitToPDFButton.addEventListener('click', (e) => {
-        let reviewedCustomerInfo = {};
-        reviewInfoFormInputs.forEach( input => {
-          if (input.value) {
-            let key = input.getAttribute('name');
-            reviewedCustomerInfo[key] = input.value;
-          }
-        })
-        let csrftoken = getCookie('csrftoken');
-        let headers = new Headers();
-        headers.append('X-CSRFToken', csrftoken);
-        fetch('/makeAcctPdf/', {
-          method: 'POST',
-          credentials: 'include',
-          headers: headers,
-          body: JSON.stringify(reviewedCustomerInfo)
-        }).then( data => {
-          return data.json()
-        }).then( data => {
-          console.log(data)
-          customerInfo = data
-        }).catch( err => {
-          console.log(err)
-        })
-      })
-      //Taken from w3schools website for getting website cookies
-      function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
+      } else {
+        inputs[i].value = info[key];
       }
-
-      function fillForm(info, inputs) {
-        let i = 0
-        for (key in info) {
-          if(i >= inputs.length) {
-            break;
-          }
-          if (info[key] == null) {
-            inputs[i].value = ""
-          } else if (inputs[i].nodeName === 'SELECT') {
-              inputs[i].childNodes.forEach( item => {
-                console.log(key, info[key])
-                if (item.nodeName == "OPTION" && item.value === info[key] || item.nodeName == "OPTION" && item.value == String(info[key])) {
-                  console.log('rawer', item)
-                  item.setAttribute('selected', 'selected')
-
-                }
-              })
-
-          } else {
-            inputs[i].value = info[key];
-          }
-          i ++;
-        }
-      }
-    </script>
+      i ++;
+    }
+  }
+</script>
 
 {% endblock content %}
