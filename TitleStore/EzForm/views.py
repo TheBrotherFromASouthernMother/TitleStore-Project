@@ -49,7 +49,7 @@ def forms(request):
     return render(request, 'EzForm/forms.html')
 
 def customer_info_to_review(request, cu_name):
-    cumstomer_query = cu_name.split(', ')
+    customer_query = cu_name.split(', ')
     # print(cumstomer_query[0])
     cu_last_name = cumstomer_query[0]
     cu_first_name = cumstomer_query[1]
