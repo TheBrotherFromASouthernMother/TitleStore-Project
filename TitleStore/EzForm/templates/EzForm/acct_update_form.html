@@ -1,13 +1,33 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
 {% block content %}
+    <div class="row d-flex justify-content-around" style="padding-top: 10px; padding-bottom: 10px">
+        <div class="col-sm-12 col-md-8" style="padding: 10px;">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <h3 style="padding-top: 20px; padding-bottom: 20px">Application for a Certified Copy of Title</h3>
+                        <h3 style="padding-bottom: 20px">View or update the form below.</h3>
 
-<form method="POST">
-    {% csrf_token %}
-    <h3>Application for a Certified Copy of Title</h3>
-    <h3>View or update the form below.</h3>
-    {{ form.as_p }}
-    <input type="submit" value="Save" />
-</form>
-
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                        {% for field in form.visible_fields %}
+                            <div class="form-group">
+                                <label>{{ field.label }}</label>
+                                {{ field|add_class:'form-control' }}
+                                {% for error in field.errors %}
+                                    <span class="help-block">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <input class="btn btn-primary" role="button" type="submit" value="Save" />
+                        <a class="btn btn-secondary" href="/forms" role="button">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

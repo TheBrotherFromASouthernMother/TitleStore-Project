@@ -2,26 +2,24 @@
 {% load widget_tweaks %}
 
 {% block content %}
-
-<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
-    <form method="POST">
-        {% csrf_token %}
-        <h3 style="padding-top: 20px; padding-bottom: 20px">Create a new customer profile below.</h3>
-        {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-        {% endfor %}
-
-        {% for field in form.visible_fields %}
-        <div class="form-group">
-        <label>{{ field.label }}</label>
-            {{ field|add_class:'form-control' }}
-        {% for error in field.errors %}
-            <span class="help-block">{{ error }}</span>
-        {% endfor %}
-        </div>
-        {% endfor %}
-        <input class="btn btn-primary" role="button" type="submit" />
-        <a class="btn btn-secondary" href="/customers" role="button">Cancel</a>
-    </form>
-</div>
+    <div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
+        <form method="POST">
+            {% csrf_token %}
+            <h3 style="padding-top: 20px; padding-bottom: 20px">Create a new customer profile below.</h3>
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field|add_class:'form-control' }}
+                    {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <input class="btn btn-primary" role="button" type="submit" />
+            <a class="btn btn-secondary" href="/customers" role="button">Cancel</a>
+        </form>
+    </div>
 {% endblock content %}

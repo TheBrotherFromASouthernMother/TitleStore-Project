@@ -1,41 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
-    <div class="col-md-12 col-lg-6 d-flex justify-content-center">
-        <h2>Customers</h2>
+    <div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
+        <div class="col-md-12 col-lg-6 d-flex justify-content-center">
+            <h2>Customers</h2>
+        </div>
     </div>
-</div>
 
-<div class="row" style="padding-bottom: 20px">
-    <div class="col-12 d-flex justify-content-end">
-        <button type="button" class="btn btn-primary btn-add">+ Add New Customer</button>
+    <div class="row" style="padding-bottom: 20px">
+        <div class="col-12 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary btn-add">+ Add New Customer</button>
+        </div>
     </div>
-</div>
 
-{% if customer_list %}
-<div class="row">
-    <div class="col-12">
-        <div class="list-group">
-        {% for customer in customer_list %}
-        <div class="list-group-item flex-column align-items-start">
-            <div class="d-flex row">
-                <div class="col-sm-6 col-xs-12">
-                    <p class="mb-1">{{ customer.cu_last_name }}, {{ customer.cu_first_name }}</p>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <button type="button" class="btn btn-outline-primary btn-sm btn-edit" customer-id="{{ customer.id }}">View/Edit</button>
-                    <button type="button" class="btn btn-outline-primary btn-sm btn-delete" customer-id="{{ customer.id }}">Delete</button>
+    {% if customer_list %}
+        <div class="row">
+            <div class="col-12">
+                <div class="list-group">
+                    {% for customer in customer_list %}
+                        <div class="list-group-item flex-column align-items-start">
+                            <div class="d-flex row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <p class="mb-1">{{ customer.cu_last_name }}, {{ customer.cu_first_name }}</p>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <button type="button" class="btn btn-outline-primary btn-sm btn-edit" customer-id="{{ customer.id }}">View/Edit</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm btn-delete" customer-id="{{ customer.id }}">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        {% endfor %}
-        </div>
-    </div>
-</div>
-
-{% endif %}
+    {% endif %}
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script type="text/javascript">
