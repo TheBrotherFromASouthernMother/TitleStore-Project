@@ -37,12 +37,14 @@
                 <h5 class="card-title" style="padding-top: 20px; padding-bottom: 20px">Customer Vehicles</h5>
                 <div class="list-group list-group-flush">
                 {% for vehicle in vehicle_list %}
+                    {% if vehicle.Customer.id == customer.id %}
                 <a href="#" class="list-group-item list-group-item-action" vehicle-id="{{vehicle.id}}">{{vehicle.v_make}} {{vehicle.v_model}}</a>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
         <div class="card-body">
-                <a class="btn btn-primary" href="/customers" role="button">+ Add New Vehicle</a>
+                <a class="btn btn-primary" href="/vehicle/create" role="button">+ Add New Vehicle</a>
             </div>
         </div>        
     </div>
