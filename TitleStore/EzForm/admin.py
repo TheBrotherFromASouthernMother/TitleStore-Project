@@ -6,7 +6,7 @@ from .models import people
 from .models import Customer
 from .models import Vehicle
 
-from .fill_form_watermark import makePDF
+# from .fill_form_watermark import makePDF
 
 def populatePDF(modelAdmin, request, queryset):
     people = queryset.values()

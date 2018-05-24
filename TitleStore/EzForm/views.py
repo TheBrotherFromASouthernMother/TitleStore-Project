@@ -16,6 +16,8 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from .models import people
 from django.views.decorators.csrf import csrf_exempt
 
+# import ./utils/acct_pdf_maker
+
 
 def index(request):
     return render(request, 'EzForm/index.html')
@@ -99,12 +101,24 @@ class AcctFormUpdate(UpdateView):
     template_name_suffix = '_update_form'
 
 def makeAcctPdf(request):
-    if request.method == 'POST':
-        c_id = customer.id
-        form_type = form.id # check for POST data structure
+    
+    # customer_instance = get_object_or_404(Customer, id=request.POST['customer-id'])
+    if request.method == 'POST': # POST data contains all data needed to make pdf
+        form_data = request.POST # dictionary-like object
+        print(form_data)
+
+    # try:
+        # customer = Customer.object.get(id=customer_id)
+        # acct_form = form
+    # except ObjectDoesNoExist: 
+        # return 'no record found'
+    makePdf(form_data) # function call to make and show pdf
+    # function call to update db
+    
+    def pdf_view(request):
     try:
-        customer = Customer.object.get(id=c_id)
-        acct_form = form
-    except ObjectDoesNoExist: 
-        print('no record found')
-        
+        return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
+    except FileNotFoundError:
+        raise Http404()
+
+    return pdf_view(request)
