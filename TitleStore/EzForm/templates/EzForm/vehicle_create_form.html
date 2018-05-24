@@ -6,7 +6,7 @@
 
 <form method="POST">
     {% csrf_token %}
-    <h3 style="padding-top: 20px; padding-bottom: 20px">Create a new customer profile below.</h3>
+    <h3 style="padding-top: 20px; padding-bottom: 20px">Create a new vehicle record below.</h3>
     {% for hidden in form.hidden_fields %}
     {{ hidden }}
     {% endfor %}

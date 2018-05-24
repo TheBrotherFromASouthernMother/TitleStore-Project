@@ -17,14 +17,15 @@ urlpatterns = [
     path('customer/<int:pk>/delete', CustomerDelete.as_view(), name='customer-delete'),
     path('customer/<int:pk>/', CustomerUpdate.as_view(), name='customer-update'),
 
-    path('vehicle/create', VehicleCreate.as_view(), name='vehicle-create'),
-    path('vehicle/<int:pk>/delete', VehicleDelete.as_view(), name='vehicle-delete'),
+    path('vehicle/create/', VehicleCreate.as_view(), name='vehicle-create'),
+    path('vehicle/<int:pk>/delete/', VehicleDelete.as_view(), name='vehicle-delete'),
     path('vehicle/<int:pk>/', VehicleUpdate.as_view(), name='vehicle-update'),
 
-    path('acttform/create', AcctFormCreate.as_view(), name='acctform-create'),
-    path('acttform/<int:pk>/delete', AcctFormDelete.as_view(), name='acctform-delete'),
+    path('acttform/create/', AcctFormCreate.as_view(), name='acctform-create'),
+    path('acttform/<int:pk>/delete/', AcctFormDelete.as_view(), name='acctform-delete'),
     path('acttform/<int:pk>/', AcctFormUpdate.as_view(), name='acctform-update'),
 
     path('makeAcctPdf/', views.makeAcctPdf, name='makeAcctPdf'),
 
+    path('customer_review/', views.customer_review, name='customer_review'),
 ]
