@@ -8,16 +8,27 @@
     </div>
 </div>
 
-<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
-    <div class="col-md-12 col-lg-6 d-flex justify-content-center">
-        <div class="list-group">
-            <a href="/customers" class="list-group-item list-group-item-action">View all customers.</a>
-            <a href="/customer/create" class="list-group-item list-group-item-action">Add a customer.</a>
-            <a href="/vehicles" class="list-group-item list-group-item-action">View all vehicles.</a>
-            <a href="/vehicle/create" class="list-group-item list-group-item-action">Add a vehicle.</a>
-            <a href="/forms" class="list-group-item list-group-item-action">View all forms.</a>
+<div class="row d-flex justify-content-center">
+    <div class="col-sm-12 col-md-5 card" style="margin: 10px">
+        <div class="card-body">
+            <h5 class="card-title">Customer Records</h5>
+            <a href="/customers" class="btn btn-primary">View All</a>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-5 card" style="margin: 10px">
+        <div class="card-body">
+            <h5 class="card-title">Vehicle Records</h5>
+            <a href="/vehicles" class="btn btn-primary">View All</a>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-5 card" style="margin: 10px">
+        <div class="card-body">
+            <h5 class="card-title">PDFs</h5>
+            <a href="/forms" class="btn btn-primary">Create</a>
         </div>
     </div>
 </div>
+
+
 
 {% endblock content %}

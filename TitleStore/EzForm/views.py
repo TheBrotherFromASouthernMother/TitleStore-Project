@@ -1,7 +1,7 @@
 
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect,  HttpRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect, HttpRequest, Http404
 
 from django.template import loader
 
@@ -78,6 +78,14 @@ class CustomerDelete(DeleteView):
 
 class CustomerUpdate(UpdateView):
     model = Customer
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(CustomerUpdate, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['vehicle_list'] = Vehicle.objects.all()
+        return context
+
     fields = '__all__'
     template_name_suffix = '_update_form'
     success_url = '/customers/'
@@ -136,10 +144,11 @@ def makeAcctPdf(request):
 
 
     # pdf should be already made when this is called
-    def pdf_view(request):
+    def pdf_view():
         try:
             return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
         except FileNotFoundError:
             raise Http404()
 
-    return pdf_view(request)
+
+    return pdf_view()

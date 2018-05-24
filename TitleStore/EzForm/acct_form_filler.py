@@ -22,32 +22,33 @@ def makePdf(data): # data passed in from form
     ### test dictionary for overlay data
     ### WORKS
 
-    vehicle_vin =  data.vin  # customer name ### COORDS BELONG TO VIN
-    year = data.year # vehicle year
-    vehicle_make = data.make # vehicle make
-    vehicle_style = data.style # vehicle body style
-    vehicle_model = data.model # vehicle model
 
-    vehicle_title_no = data.title # vehicle title/document number
-    vehicle_license = data.license # TX license plate number
+    vehicle_vin =  data.v_vin  # customer name ### COORDS BELONG TO VIN
+    vehicle_year = data.v_year # vehicle year
+    vehicle_make = data.v_make # vehicle make
+    vehicle_style = data.v_style # vehicle body style
+    vehicle_model = data.v_model # vehicle model
 
-    customer_name = data.name # customer name
-    second_customer_name = data.second_name # additional customer name
+    vehicle_title_no = data.v_title # vehicle title/document number
+    vehicle_plate_number = data.v_plate_number # TX license plate number
+
+    applicant_name = data.applicant_name # applicant name
+    second_applicant_name = data.second_applicant_name # additional applicant name
 
     date = '' # date above, date below
 
-    recipient_first_name = data.recipient_first_name # receipient first name
-    recipient_middle_name = data.recipient_middle_name # recipient middle name
-    recipient_last_name = data.recipient_last_name # receipient last name
-    recipient_suffix = data.recipient_suffix # receipient name suffix
+    recipient_first_name = data.cu_first_name # receipient first name
+    recipient_middle_name = data.cu_middle_name # recipient middle name
+    recipient_last_name = data.cu_last_name # receipient last name
+    recipient_suffix = data.cu_suffix # receipient name suffix
 
-    address = data.address # mailing address
-    city = data.city # city
-    state = data.state # state
-    zip_code = data.zip_code # zip
+    address = data.cu_address_line_1 # mailing address
+    city = data.cu_city # city
+    state = data.cu_state # state
+    zip_code = data.cu_zip # zip
 
-    email = data.email # email
-    phone = data.phone # phone number
+    email = data.cu_email # email
+    phone = data.cu_phone # phone number
 
 
     '''
@@ -90,7 +91,7 @@ def makePdf(data): # data passed in from form
         'form': 'ACCT', # form_type
         'data': [
             { 'x': 6, 'y': 140, 'w': 94, 'h': 5, 'value': vehicle_vin }, # customer name ### COORDS BELONG TO VIN
-            { 'x': 102, 'y': 140, 'w': 23, 'h': 5, 'value': year }, # vehicle year
+            { 'x': 102, 'y': 140, 'w': 23, 'h': 5, 'value': vehicle_year }, # vehicle year
             { 'x': 127, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
             { 'x': 150, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
             { 'x': 173, 'y': 140, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
@@ -98,8 +99,10 @@ def makePdf(data): # data passed in from form
             { 'x': 6, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
             { 'x': 102, 'y': 149, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
 
-            { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': customer_name }, # customer name
-            { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_customer_name }, # additional customer name
+
+            { 'x': 88, 'y': 175, 'w': 22, 'h': 5, 'value': applicant_name }, # applicant name
+            { 'x': 88, 'y': 189, 'w': 22, 'h': 5, 'value': second_applicant_name }, # additional applicant name
+
 
             { 'x': 170, 'y': 175, 'w': 22, 'h': 5, 'value': date }, # date above
             { 'x': 170, 'y': 189, 'w': 22, 'h': 5, 'value': date }, # date below
@@ -192,7 +195,7 @@ def makePdf(data): # data passed in from form
 
     ### this takes the overlay data and merges it with the watermark template
     ### WORKS
-    with open("./utils/acct_background.pdf", 'rb') as pdf_template_file, open(overlay_pdf_file_name, 'rb') as overlay_PDF_file:
+    with open("./static/acct_background.pdf", 'rb') as pdf_template_file, open(overlay_pdf_file_name, 'rb') as overlay_PDF_file:
         # open watermark template pdf object
         pdf_template = PdfFileReader(pdf_template_file)
         # open overlay data pdf object
