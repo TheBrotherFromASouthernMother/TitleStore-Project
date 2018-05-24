@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from .models import Customer, Vehicle, AcctForm
 
 from django.db import models
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, ModelFormMixin
 
 import json
 
@@ -83,6 +83,15 @@ class CustomerUpdate(UpdateView):
     fields = '__all__'
     template_name_suffix = '_update_form'
     success_url = '/customers/'
+
+
+# from .forms import MyForm
+# class MyUpdateView(UpdateView):
+#     def get(self, request, *args, **kwargs):
+#         view = CustomerUpdate.as_view()
+#         return view(request, *args, **kwargs)
+
+    
 
 class VehicleCreate(UpdateView):
     model = Vehicle
