@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% if user.is_superuser %}
+
 <div>
     <h4>Copying Titles</h4>
     <ul>
@@ -44,5 +46,11 @@
 
 
 </div>
+
+{% else %}
+
+{% include "EzForm/login_redirect.html" %}
+
+{% endif %}
 
 {% endblock content %}

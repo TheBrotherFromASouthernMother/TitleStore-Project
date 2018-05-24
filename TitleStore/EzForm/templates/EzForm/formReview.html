@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% if user.is_superuser %}
+
   <div class="row d-flex justify-content-between" style="padding-top: 20px; padding-bottom: 20px">
 
     <div class="col-sm-12 col-md-4" style="padding: 10px;">
@@ -134,6 +136,12 @@
 
     </div>
   </div>
+
+{% else %}
+
+{% include "EzForm/login_redirect.html" %}
+
+{% endif %}
 
 <script type="text/javascript">
   let dropdownButtons = document.querySelectorAll('.dropdown-item')

@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% if user.is_superuser %}
+
 <div class="row d-flex justify-content-center" style="padding-top: 20px">
     <form method="POST">
         {% csrf_token %}
@@ -9,5 +11,12 @@
         <input class="btn btn-primary" role="button" type="submit" />
         <a class="btn btn-secondary" href="/vehicles" role="button">Cancel</a>
     </form>
+</div>
+
+{% else %}
+
+{% include "EzForm/login_redirect.html" %}
+
+{% endif %}
 
 {% endblock content %}

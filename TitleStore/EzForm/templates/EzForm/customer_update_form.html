@@ -2,6 +2,9 @@
 {% load widget_tweaks %}
 
 {% block content %}
+
+{% if user.is_superuser %}
+
     <div class="row d-flex justify-content-around" style="padding-top: 10px; padding-bottom: 10px">
         <div class="col-sm-12 col-md-8" style="padding: 10px;">
             <div class="card">
@@ -46,6 +49,13 @@
             </div>        
         </div>
     </div>
+
+{% else %}
+
+{% include "EzForm/login_redirect.html" %}
+
+{% endif %}
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script type="text/javascript">
     $(".list-group-item-action").click( function() {
