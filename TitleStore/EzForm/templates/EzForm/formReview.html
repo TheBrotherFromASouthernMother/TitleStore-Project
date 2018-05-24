@@ -158,6 +158,7 @@
       submitToPDFButton.addEventListener('click', (e) => {
         let reviewedCustomerInfo = {};
         reviewInfoFormInputs.forEach( input => {
+          let boolvalues = ['true', 'false', 'null']
           if (input.value) {
             let key = input.getAttribute('name');
             reviewedCustomerInfo[key] = input.value;
