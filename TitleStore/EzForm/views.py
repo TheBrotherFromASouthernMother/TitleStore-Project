@@ -62,8 +62,6 @@ def customer_info_to_review(request, cu_name):
             dataToSendToClient[key] = customer_file[key]
     # print(dataToSendToClient)
     response = JsonResponse(dataToSendToClient)
-    print('posted')
-    # print(response)
     return response
 
 
@@ -118,12 +116,14 @@ def makeAcctPdf(request):
     if request.method == 'POST':
         body = json.loads(request.body)
         print(body)
-        #TODO: save to DB, and redirect user to PDF page
         c_id = body['id']
-        form_type = form.id # check for POST data structure
-    try:
-        customer = Customer.object.get(id=c_id)
-        acct_form = form
-    except ObjectDoesNoExist:
-        print('no record found')
+        # print(type(c_id))
+        # c_id = int(c_id)
+        #TODO: redirect user to PDF page
+    # try:
+        #TODO: save to DB, and
+        customer = Customer.objects.filter(id=c_id).update(**body)
+        print(customer)
+    # except:
+    #     print('no record found')
     return JsonResponse({'greet': 'G\'day mate'})
