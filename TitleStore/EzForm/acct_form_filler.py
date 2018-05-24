@@ -21,31 +21,31 @@ def makePdf(data): # data passed in from form
     ### test dictionary for overlay data
     ### WORKS
 
-    vehicle_vin =  data.v_vin  # customer name ### COORDS BELONG TO VIN
-    vehicle_year = data.v_year # vehicle year
-    vehicle_make = data.v_make # vehicle make
-    vehicle_style = data.v_style # vehicle body style
-    vehicle_model = data.v_model # vehicle model
+    vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
+    vehicle_year = data['v_year'] # vehicle year
+    vehicle_make = data[v_make] # vehicle make
+    vehicle_style = data['v_style'] # vehicle body style
+    vehicle_model = data['v_model'] # vehicle model
             
-    vehicle_title_no = data.v_title # vehicle title/document number
-    vehicle_plate_number = data.v_plate_number # TX license plate number
+    vehicle_title_no = data['v_title'] # vehicle title/document number
+    vehicle_plate_number = data['v_plate_number'] # TX license plate number
             
-    applicant_name = data.applicant_name # applicant name
-    second_applicant_name = data.second_applicant_name # additional applicant name
+    applicant_name = data['applicant_name'] # applicant name
+    second_applicant_name = data['second_applicant_name'] # additional applicant name
     date = '' # date above, date below
 
-    recipient_first_name = data.cu_first_name # receipient first name
-    recipient_middle_name = data.cu_middle_name # recipient middle name
-    recipient_last_name = data.cu_last_name # receipient last name
-    recipient_suffix = data.cu_suffix # receipient name suffix
+    recipient_first_name = data['cu_first_name'] # receipient first name
+    recipient_middle_name = data['cu_middle_name'] # recipient middle name
+    recipient_last_name = data['cu_last_name'] # receipient last name
+    recipient_suffix = data['cu_suffix'] # receipient name suffix
 
-    address = data.cu_address_line_1 # mailing address
-    city = data.cu_city # city
-    state = data.cu_state # state
-    zip_code = data.cu_zip # zip
+    address = data['cu_address_line_1'] # mailing address
+    city = data['cu_city'] # city
+    state = data['cu_state'] # state
+    zip_code = data['cu_zip'] # zip
 
-    email = data.cu_email # email
-    phone = data.cu_phone # phone number
+    email = data['cu_email'] # email
+    phone = data['cu_phone'] # phone number
 
 
     '''
