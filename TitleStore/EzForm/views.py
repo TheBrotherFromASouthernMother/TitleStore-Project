@@ -51,8 +51,8 @@ def forms(request):
 def customer_info_to_review(request, cu_name):
     customer_query = cu_name.split(', ')
     # print(cumstomer_query[0])
-    cu_last_name = cumstomer_query[0]
-    cu_first_name = cumstomer_query[1]
+    cu_last_name = customer_query[0]
+    cu_first_name = customer_query[1]
     customers_on_file = Customer.objects.get(cu_last_name=cu_last_name, cu_first_name=cu_first_name)
     # print(customers_on_file.__dict__)
     customer_file = customers_on_file.__dict__
