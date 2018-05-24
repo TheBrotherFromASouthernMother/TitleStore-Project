@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 import json
 
-
+from .acct_form_filler import makePdf as acct_pdf_maker
 
 # dashboard view
 def index(request):
@@ -49,10 +49,10 @@ def forms(request):
     return render(request, 'EzForm/forms.html')
 
 def customer_info_to_review(request, cu_name):
-    cumstomer_query = cu_name.split(', ')
+    customer_query = cu_name.split(', ')
     # print(cumstomer_query[0])
-    cu_last_name = cumstomer_query[0]
-    cu_first_name = cumstomer_query[1]
+    cu_last_name = customer_query[0]
+    cu_first_name = customer_query[1]
     customers_on_file = Customer.objects.get(cu_last_name=cu_last_name, cu_first_name=cu_first_name)
     # print(customers_on_file.__dict__)
     customer_file = customers_on_file.__dict__
@@ -82,7 +82,7 @@ class CustomerUpdate(UpdateView):
     template_name_suffix = '_update_form'
     success_url = '/customers/'
 
-class VehicleCreate(UpdateView):
+class VehicleCreate(CreateView):
     model = Vehicle
     fields = '__all__'
     template_name_suffix = '_create_form'
@@ -120,9 +120,26 @@ def makeAcctPdf(request):
 
         #TODO: redirect user to PDF page
     try:
+        # acct_form_filler.makePdf(data=body)
+        acct_pdf_maker(data=body) # sends POST data to make pdf
+
         #TODO: save to DB, and
+        acct_form = AcctForm(**body)
+        acct_form.save()
         customer = Customer.objects.filter(id=c_id).update(**body)
+
         return JsonResponse({'successMessage': 'Record updated'})
-    except:
-        print('no record found')
+    except (RuntimeError, TypeError, NameError):
+        print(RuntimeError)
         return JsonResponse({'errorMessage': 'There was no record found matching the customer id: ' + c_id + ' please try again.'})
+        print(customer)
+
+
+    # pdf should be already made when this is called
+    def pdf_view(request):
+        try:
+            return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
+        except FileNotFoundError:
+            raise Http404()
+
+    return pdf_view(request)
