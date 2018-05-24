@@ -3,10 +3,11 @@
 
 {% block content %}
 
-vehicles: {{vehicle_list}}
-
-<div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
-    <form method="POST">
+<div class="row d-flex justify-content-around" style="padding-top: 10px; padding-bottom: 10px">
+    <div class="col-sm-12 col-md-8" style="padding: 10px;">
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
         {% csrf_token %}
         <h3 style="padding-top: 20px; padding-bottom: 20px">View or update the customer profile below.</h3>
 
@@ -28,6 +29,34 @@ vehicles: {{vehicle_list}}
         <input class="btn btn-primary" role="button" type="submit" />
         <a class="btn btn-secondary" href="/customers" role="button">Cancel</a>
     </form>
+</div>    </div>
+    </div>
+    <div class="col-sm-12 col-md-4" style="padding: 10px;">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="padding-top: 20px; padding-bottom: 20px">Customer Vehicles</h5>
+                <div class="list-group list-group-flush">
+                {% for vehicle in vehicle_list %}
+                <a href="#" class="list-group-item list-group-item-action" vehicle-id="{{vehicle.id}}">{{vehicle.v_make}} {{vehicle.v_model}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card-body">
+                <a class="btn btn-primary" href="/customers" role="button">+ Add New Vehicle</a>
+            </div>
+        </div>        
+    </div>
 </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(".list-group-item-action").click( function() {
+        let vId = $(this).attr("vehicle-id");
+        window.location.href = "/vehicle/" + vId;
+    });
+</script>
+
 
 {% endblock content %}
