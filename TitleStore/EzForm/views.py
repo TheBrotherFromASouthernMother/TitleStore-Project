@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 import json
 
-
+from .acct_form_filler import makePdf as acct_pdf_maker
 
 # dashboard view
 def index(request):
@@ -82,7 +82,7 @@ class CustomerUpdate(UpdateView):
     template_name_suffix = '_update_form'
     success_url = '/customers/'
 
-class VehicleCreate(UpdateView):
+class VehicleCreate(CreateView):
     model = Vehicle
     fields = '__all__'
     template_name_suffix = '_create_form'
@@ -120,10 +120,24 @@ def makeAcctPdf(request):
         # print(type(c_id))
         # c_id = int(c_id)
         #TODO: redirect user to PDF page
+        # acct_form_filler.makePdf(data=body)
+        acct_pdf_maker(data=body)
+        
     # try:
         #TODO: save to DB, and
+        acct_form = AcctForm(**body)
+        acct_form.save()
         customer = Customer.objects.filter(id=c_id).update(**body)
+
         print(customer)
+
+    def pdf_view(request):
+        try:
+            return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
+        except FileNotFoundError:
+            raise Http404()
+
+    return pdf_view(request)
     # except:
     #     print('no record found')
-    return JsonResponse({'greet': 'G\'day mate'})
+    # return JsonResponse({'greet': 'G\'day mate'})
