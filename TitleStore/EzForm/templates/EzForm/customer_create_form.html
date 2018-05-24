@@ -2,6 +2,9 @@
 {% load widget_tweaks %}
 
 {% block content %}
+
+{% if user.is_superuser %}
+
     <div class="row d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px">
         <form method="POST">
             {% csrf_token %}
@@ -22,4 +25,11 @@
             <a class="btn btn-secondary" href="/customers" role="button">Cancel</a>
         </form>
     </div>
+
+{% else %}
+
+{% include "EzForm/login_redirect.html" %}
+
+{% endif %}
+
 {% endblock content %}

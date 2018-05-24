@@ -57,11 +57,10 @@ def forms(request):
 
 def customer_info_to_review(request, cu_name):
     customer_query = cu_name.split(', ')
-    # print(cumstomer_query[0])
+
     cu_last_name = customer_query[0]
     cu_first_name = customer_query[1]
     customers_on_file = Customer.objects.get(cu_last_name=cu_last_name, cu_first_name=cu_first_name)
-    # print(customers_on_file.__dict__)
     customer_file = customers_on_file.__dict__
     dataToSendToClient = {}
     for key in customer_file:
@@ -130,24 +129,25 @@ class AcctFormUpdate(UpdateView):
 def makeAcctPdf(request):
     if request.method == 'POST':
         body = json.loads(request.body)
-        print(body)
         c_id = body['id']
+        body['cu_flag_military'] = bool(body['cu_flag_military'])
 
         #TODO: redirect user to PDF page
-    try:
+    # try:
         # acct_form_filler.makePdf(data=body)
         acct_pdf_maker(data=body) # sends POST data to make pdf
 
         #TODO: save to DB, and
-        acct_form = AcctForm(**body)
-        acct_form.save()
+        vehicle_on_file = Vehicle.objects.filter(Customer=c_id)
+        print(vehicle_on_file.__dict__)
+        # acct_form = AcctForm(**body)
+        # acct_form.save()
         customer = Customer.objects.filter(id=c_id).update(**body)
 
         return JsonResponse({'successMessage': 'Record updated'})
-    except (RuntimeError, TypeError, NameError):
+    # except (RuntimeError, TypeError, NameError):
         print(RuntimeError)
         return JsonResponse({'errorMessage': 'There was no record found matching the customer id: ' + c_id + ' please try again.'})
-        print(customer)
 
 
     # pdf should be already made when this is called

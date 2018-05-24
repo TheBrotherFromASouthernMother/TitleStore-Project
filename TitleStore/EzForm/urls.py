@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('customer_review/', views.customer_review, name='customer_review'),
     path('customers/', views.customers, name='customers'),
-    path('vehicles/', views.vehicles, name='vehicles'),
+    # path('vehicles/', views.vehicles, name='vehicles'),
     path('forms/', views.forms, name='forms'),
     path('customer_info_to_review/<str:cu_name>/', views.customer_info_to_review, name='customer_info_to_review'),
     # ex: /polls/5/results/
