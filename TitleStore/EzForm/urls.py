@@ -25,4 +25,6 @@ urlpatterns = [
     path('acttform/<int:pk>/', AcctFormUpdate.as_view(), name='acctform-update'),
 
     path('makeAcctPdf/', views.makeAcctPdf, name='makeAcctPdf'),
+
+    path('customer_review/', views.customer_review, name='customer_review'),
 ]

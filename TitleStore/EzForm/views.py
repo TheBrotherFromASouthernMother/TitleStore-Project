@@ -121,7 +121,7 @@ def makeAcctPdf(request):
         # c_id = int(c_id)
         #TODO: redirect user to PDF page
         # acct_form_filler.makePdf(data=body)
-        acct_pdf_maker(data=body)
+        acct_pdf_maker(data=body) # sends POST data to make pdf
         
     # try:
         #TODO: save to DB, and
@@ -131,6 +131,8 @@ def makeAcctPdf(request):
 
         print(customer)
 
+
+    # pdf should be already made when this is called
     def pdf_view(request):
         try:
             return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
