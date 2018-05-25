@@ -1,7 +1,7 @@
 
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect, HttpRequest, Http404
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect, HttpRequest, Http404, FileResponse
 
 from django.template import loader
 
@@ -12,6 +12,7 @@ from django.db import models
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 import json
+import os
 
 from .acct_form_filler import makePdf as acct_pdf_maker
 
@@ -56,6 +57,7 @@ def forms(request):
     return render(request, 'EzForm/forms.html')
 
 def customer_info_to_review(request, cu_name):
+    dataToSendToClient = {}
     customer_query = cu_name.split(', ')
 
     cu_last_name = customer_query[0]
@@ -63,20 +65,21 @@ def customer_info_to_review(request, cu_name):
     customers_on_file = Customer.objects.get(cu_last_name=cu_last_name, cu_first_name=cu_first_name)
     customer_file = customers_on_file.__dict__
 
-    vehicle_on_file = Vehicle.objects.get(Customer=customer_file['id'])
-    vehicle_file = vehicle_on_file.__dict__
 
-    dataToSendToClient = {}
     for key in customer_file:
         if key != '_state':
             dataToSendToClient[key] = customer_file[key]
+
+    vehicle_on_file = Vehicle.objects.get(Customer=customer_file['id'])
+    vehicle_file = vehicle_on_file.__dict__
     for key in vehicle_file:
         if key != '_state':
             dataToSendToClient[key] = vehicle_file[key]
-    # print(dataToSendToClient)
+
+
+
     response = JsonResponse(dataToSendToClient)
     return response
-
 
 
 class CustomerCreate(CreateView):
@@ -139,33 +142,47 @@ def makeAcctPdf(request):
         print(body)
         c_id = body['id']
         for key in body:
-            print(body[key])
-            # stringToBool(body, key)
+            stringToBool(body, key)
+
+        updateCustomer = {}
+        updateVehicle = {}
+        for customerKey in body:
+            updateCustomer[customerKey] = body[customerKey]
+            if customerKey == 'cu_flag_military':
+                break
+
+        for vehicleKey in body:
+            if vehicleKey not in updateCustomer:
+                updateVehicle[vehicleKey] = body[vehicleKey]
+
+        print(updateCustomer)
+        print(updateVehicle)
 
         #TODO: redirect user to PDF page
-    # try:
-
-        acct_pdf_maker(data=body) # sends POST data to make pdf
-
-        customer = Customer.objects.filter(id=c_id).update(**body)
-
-        return JsonResponse({'successMessage': 'Record updated'})
-    # except (RuntimeError, TypeError, NameError):
-        print(RuntimeError)
-        return JsonResponse({'errorMessage': 'There was no record found matching the customer id: ' + c_id + ' please try again.'})
-
-
-    # pdf should be already made when this is called
-    def pdf_view():
         try:
-            return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
-        except FileNotFoundError:
-            raise Http404()
+             # Overlay pdf dumped to prevent same info from being copied
+            if os.path.exists('overlay_PDF.pdf'):
+                os.remove('overlay_PDF.pdf')
+            acct_pdf_maker(data=body) # sends POST data to make pdf
+            customer = Customer.objects.filter(id=c_id).update(**updateCustomer)
 
+        except (RuntimeError, TypeError, NameError):
+            return JsonResponse({'errorMessage': 'There was no record found matching the customer id: ' + c_id + ' please try again.'})
 
-    return pdf_view()
+        return pdf_view()
+    else:
+        return Http404()
 
 def stringToBool(data, key):
     options = ('true', 'false', 'null')
     if data[key] in options:
         data[key] = bool(data[key])
+        print(data[key], type(data[key]))
+
+
+    # pdf should be already made when this is called
+def pdf_view():
+    try:
+        return FileResponse(open('result_form.pdf', 'rb'), content_type='application/pdf')
+    except FileNotFoundError:
+        raise Http404()

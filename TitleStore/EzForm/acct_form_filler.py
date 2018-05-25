@@ -10,7 +10,7 @@ def makePdf(data): # data passed in from form
     pdf_template_file_name = 'acct_background.pdf' # base_PDF_template
 
     #TODO: Change data to bracket notation so Python will stop complaining
-    result_pdf_file_name = 'result_form.pdf'
+    result_pdf_file_name = 'result_form' + data['cu_last_name'] + '.pdf'
     # result_pdf_file_name = "./pdfs/" + data['person_name'] + ".pdf"
 
 
@@ -21,18 +21,18 @@ def makePdf(data): # data passed in from form
 
     # test dictionary for overlay data
     ## this converts the HTTP body request data to variable names for the PDF maker function
-    vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
+    vehicle_vin =  data['v_vin'] # customer name ### COORDS BELONG TO VIN
     vehicle_year = data['v_year'] # vehicle year
     vehicle_make = data['v_make'] # vehicle make
     vehicle_style = data['v_body_style'] # vehicle body style
     vehicle_model = data['v_model'] # vehicle model
 
-    vehicle_title_no = data['v_title'] # vehicle title/document number
-    vehicle_plate_number = data['v_plate_number'] # TX license plate number
-
-    applicant_name = data['applicant_name'] # applicant name
-    second_applicant_name = data['second_applicant_name'] # additional applicant name
-    date = '' # date above, date below
+    # vehicle_title_no = data['v_title'] # vehicle title/document number
+    # vehicle_plate_number = data['v_plate_number'] # TX license plate number
+    #
+    # applicant_name = data['applicant_name'] # applicant name
+    # second_applicant_name = data['second_applicant_name'] # additional applicant name
+    # date = '' # date above, date below
 
     recipient_first_name = data['cu_first_name'] # receipient first name
     recipient_middle_name = data['cu_middle_name'] # recipient middle name
@@ -57,16 +57,16 @@ def makePdf(data): # data passed in from form
             { 'x': 157, 'y': 147, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
             { 'x': 180, 'y': 147, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
 
-            { 'x': 13, 'y': 156, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
-            { 'x': 109, 'y': 156, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
-
-
-            { 'x': 95, 'y': 182, 'w': 22, 'h': 5, 'value': applicant_name }, # applicant name
-            { 'x': 95, 'y': 196, 'w': 22, 'h': 5, 'value': second_applicant_name }, # additional applicant name
-
-
-            { 'x': 177, 'y': 182, 'w': 22, 'h': 5, 'value': date }, # date above
-            { 'x': 177, 'y': 196, 'w': 22, 'h': 5, 'value': date }, # date below
+            # { 'x': 13, 'y': 156, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
+            # { 'x': 109, 'y': 156, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
+            #
+            #
+            # { 'x': 95, 'y': 182, 'w': 22, 'h': 5, 'value': applicant_name }, # applicant name
+            # { 'x': 95, 'y': 196, 'w': 22, 'h': 5, 'value': second_applicant_name }, # additional applicant name
+            #
+            #
+            # { 'x': 177, 'y': 182, 'w': 22, 'h': 5, 'value': date }, # date above
+            # { 'x': 177, 'y': 196, 'w': 22, 'h': 5, 'value': date }, # date below
 
             { 'x': 13, 'y': 216, 'w': 73, 'h': 5, 'value': recipient_first_name }, # receipient first name
             { 'x': 87, 'y': 216, 'w': 46, 'h': 5, 'value': recipient_middle_name }, # recipient middle name
