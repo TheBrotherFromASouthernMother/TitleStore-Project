@@ -24,12 +24,12 @@ def makePdf(data): # data passed in from form
     vehicle_vin =  data['v_vin']  # customer name ### COORDS BELONG TO VIN
     vehicle_year = data['v_year'] # vehicle year
     vehicle_make = data['v_make'] # vehicle make
-    vehicle_style = data['v_style'] # vehicle body style
+    vehicle_style = data['v_body_style'] # vehicle body style
     vehicle_model = data['v_model'] # vehicle model
-            
+
     vehicle_title_no = data['v_title'] # vehicle title/document number
     vehicle_plate_number = data['v_plate_number'] # TX license plate number
-            
+
     applicant_name = data['applicant_name'] # applicant name
     second_applicant_name = data['second_applicant_name'] # additional applicant name
     date = '' # date above, date below
@@ -47,37 +47,6 @@ def makePdf(data): # data passed in from form
     email = data['cu_email'] # email
     phone = data['cu_phone_primary'] # phone number
 
-# test dictionary
-'''
-    vehicle_vin =  '12345678901234567' # customer name ### COORDS BELONG TO VIN
-    year = '2000' # vehicle year
-    vehicle_make = 'Affordy' # vehicle make
-    vehicle_style = 'Stylo' # vehicle body style
-    vehicle_model = 'Edsel' # vehicle model
-
-    vehicle_title_no = '1234567890' # vehicle title/document number
-    vehicle_license = 'DLR-J3L2' # TX license plate number
-
-    data['person_name'] = 'Bob' # customer name
-    second_customer_name = 'Cat' # additional customer name
-
-    date = 'May 1, 2018' # date above, date below
-
-    recipient_first_name = 'Johnny' # receipient first name
-    recipient_middle_name = 'Middle' # recipient middle name
-    recipient_last_name = 'Recipient' # receipient last name
-    recipient_suffix = '' # receipient name suffix
-
-    address = '123 Fake St.' # mailing address
-    city = 'Houston' # city
-    state = 'TX' # state
-    zip_code = '77777' # zip
-
-    email = 'john@john.com' # email
-    phone = '123-123-1234' # phone number
-'''
-
-
     # dictionary for ACCT form
     form_dictionary = {
         'form': 'ACCT', # form_type
@@ -87,15 +56,15 @@ def makePdf(data): # data passed in from form
             { 'x': 134, 'y': 147, 'w': 22, 'h': 5, 'value': vehicle_make }, # vehicle make
             { 'x': 157, 'y': 147, 'w': 22, 'h': 5, 'value': vehicle_style }, # vehicle body style
             { 'x': 180, 'y': 147, 'w': 22, 'h': 5, 'value': vehicle_model }, # vehicle model
-            
+
             { 'x': 13, 'y': 156, 'w': 22, 'h': 5, 'value': vehicle_title_no }, # vehicle title/document number
             { 'x': 109, 'y': 156, 'w': 22, 'h': 5, 'value': vehicle_license }, # TX license plate number
-            
-            
+
+
             { 'x': 95, 'y': 182, 'w': 22, 'h': 5, 'value': applicant_name }, # applicant name
             { 'x': 95, 'y': 196, 'w': 22, 'h': 5, 'value': second_applicant_name }, # additional applicant name
-            
-            
+
+
             { 'x': 177, 'y': 182, 'w': 22, 'h': 5, 'value': date }, # date above
             { 'x': 177, 'y': 196, 'w': 22, 'h': 5, 'value': date }, # date below
 
@@ -145,4 +114,3 @@ def makePdf(data): # data passed in from form
             output_pdf.addPage(template_page)
         with open(result_pdf_file_name, 'wb') as result_pdf_file:
             output_pdf.write(result_pdf_file)
-

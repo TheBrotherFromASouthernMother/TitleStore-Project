@@ -136,6 +136,7 @@ class AcctFormUpdate(UpdateView):
 def makeAcctPdf(request):
     if request.method == 'POST':
         body = json.loads(request.body)
+        print(body)
         c_id = body['id']
         for key in body:
             print(body[key])
