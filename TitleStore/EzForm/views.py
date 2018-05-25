@@ -43,7 +43,14 @@ def customer_review(request):
         for customer in customers_on_file:
             context['customers'].append(customer.cu_last_name + ', ' + customer.cu_first_name)
 
-        return HttpResponse(template.render(context, request))
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(customer_review, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['vehicle_list'] = Vehicle.objects.all()
+        return context
+
+    return HttpResponse(template.render(context, request))
 
 def forms(request):
     return render(request, 'EzForm/forms.html')
