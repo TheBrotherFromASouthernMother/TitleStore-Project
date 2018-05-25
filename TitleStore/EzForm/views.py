@@ -55,10 +55,17 @@ def customer_info_to_review(request, cu_name):
     cu_first_name = customer_query[1]
     customers_on_file = Customer.objects.get(cu_last_name=cu_last_name, cu_first_name=cu_first_name)
     customer_file = customers_on_file.__dict__
+
+    vehicle_on_file = Vehicle.objects.get(Customer=customer_file['id'])
+    vehicle_file = vehicle_on_file.__dict__
+
     dataToSendToClient = {}
     for key in customer_file:
         if key != '_state':
             dataToSendToClient[key] = customer_file[key]
+    for key in vehicle_file:
+        if key != '_state':
+            dataToSendToClient[key] = vehicle_file[key]
     # print(dataToSendToClient)
     response = JsonResponse(dataToSendToClient)
     return response
@@ -123,18 +130,15 @@ def makeAcctPdf(request):
     if request.method == 'POST':
         body = json.loads(request.body)
         c_id = body['id']
-        body['cu_flag_military'] = bool(body['cu_flag_military'])
+        for key in body:
+            print(body[key])
+            # stringToBool(body, key)
 
         #TODO: redirect user to PDF page
     # try:
-        # acct_form_filler.makePdf(data=body)
+
         acct_pdf_maker(data=body) # sends POST data to make pdf
 
-        #TODO: save to DB, and
-        vehicle_on_file = Vehicle.objects.filter(Customer=c_id)
-        print(vehicle_on_file.__dict__)
-        # acct_form = AcctForm(**body)
-        # acct_form.save()
         customer = Customer.objects.filter(id=c_id).update(**body)
 
         return JsonResponse({'successMessage': 'Record updated'})
@@ -152,3 +156,8 @@ def makeAcctPdf(request):
 
 
     return pdf_view()
+
+def stringToBool(data, key):
+    options = ('true', 'false', 'null')
+    if data[key] in options:
+        data[key] = bool(data[key])

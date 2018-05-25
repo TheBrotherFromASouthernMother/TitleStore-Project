@@ -18,119 +18,32 @@
     </div>
 
     <div class="col-sm-12 col-md-8" style="padding: 10px;">
+
     <!-- TODO add JSON fields to input fields -->
       <form class="review-info" action="makeacctpdf" method="post" style="margin-top: 2%;">
         <h2 style="padding-top: 20px; padding-bottom: 20px">Review Customer Info</h2>
 
-        <div class="form-group">
-          <label for="id">Customer ID</label>
-          <input class="form-control" type="text" name="id" value="" readonly="readonly">
-        </div>
+        <div class="data-fields">
 
-        <div class="form-group">
-          <label for="cu_date_added"> Date Added </label>
-          <input class="form-control" type="text" name="cu_date_added" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_date_last_changed"> Last Modified</label>
-          <input class="form-control" type="text" name="cu_date_last_changed" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_last_name"> Last Name </label>
-          <input class="form-control" type="text" name="cu_last_name" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_first_name"> First Name </label>
-          <input class="form-control" type="text" name="cu_first_name" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_middle_name"> Middle Name</label>
-          <input class="form-control" type="text" name="cu_middle_name" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_suffix"> Suffix </label>
-          <input class="form-control" type="text" name="cu_suffix" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_email"> Email </label>
-          <input class="form-control" type="text" name="cu_email" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_address_line_1"> Address Line 1 </label>
-          <input class="form-control" type="text" name="cu_address_line_1" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_address_line_2"> Adress Line 2</label>
-          <input class="form-control" type="text" name="cu_address_line_1" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_city"> City</label>
-          <input class="form-control" type="text" name="cu_city" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_state"> State/Province/District </label>
-          <input class="form-control" type="text" name="cu_state" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_zip"> ZIP Code </label>
-          <input class="form-control" type="text" name="cu_zip" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_country"> Country </label>
-          <input class="form-control" type="text" name="cu_country" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_county"> County</label>
-          <input class="form-control" type="text" name="cu_county" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_phone_primary"> Primary Phone </label>
-          <input class="form-control" type="text" name="cu_phone_primary" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_photo_id_number"> Driver's License/ID Number</label>
-          <input class="form-control" type="text" name="cu_photo_id_number" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="cu_photo_id_type"> ID Type</label>
-          <select class="form-control id-select" name="cu_photo_id_type">
-            <option value="DRIVERS_LICENSE">U.S. Driver's License/ID Card</option>
-            <option value="MILITARY_ID">U.S. Military ID</option>
-            <option value="DOJ_ID">U.S. Citizenship & Immigration Services/DOJ ID</option>
-            <option value="DOS_ID"> Department of State ID </option>
+          <div class="form-group">
+            <select name="v_flag_no_plates" id="id_v_flag_no_plates">
+            <option value="" selected="">---------</option>
+            <option value="HAS_PLATES">License plates and registration issued for this vehicle are being surrendered. The registration for this vehicle is not currently suspended or revoked.</option>
+            <option value="NO_PLATES">Vehicle has no license plates and/or registration.</option>
+            <option value="MIL_PLATES">Vehicle has been issued a license plate under the applicable status of forces agreement.</option>
           </select>
-        </div>
+          </div>
 
-        <div class="form-group">
-          <label for="cu_photo_id_state"> ID State/Province/District</label>
-          <input class="form-control" type="text" name="cu_photo_id_state" value="">
+          <div class="form-group">
+            <label for="cu_photo_id_type"> ID Type</label>
+            <select class="form-control id-select" name="cu_photo_id_type">
+              <option value="DRIVERS_LICENSE">U.S. Driver's License/ID Card</option>
+              <option value="MILITARY_ID">U.S. Military ID</option>
+              <option value="DOJ_ID">U.S. Citizenship & Immigration Services/DOJ ID</option>
+              <option value="DOS_ID"> Department of State ID </option>
+            </select>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label for="cu_flag_military"> Military personel stationed in Texas?</label>
-          <select class="form-control" name="cu_flag_military" id="id_cu_flag_military">
-            <option value="null">Unknown</option>
-            <option value="true">Yes</option>
-            <option value="false" >No</option>
-          </select>
-        </div>
-
         <button type="button" name="button" class="btn btn-primary info-submit">Make PDF</button>
       </form>
 
@@ -144,9 +57,64 @@
 {% endif %}
 
 <script type="text/javascript">
-  let dropdownButtons = document.querySelectorAll('.dropdown-item')
-  let reviewInfoForm = document.querySelector('.review-info')
-  let reviewInfoFormInputs = document.querySelectorAll('.review-info input, .review-info select')
+    let specificChoice = ['cu_photo_id_type', 'v_flag_no_plates'];
+  function makeFormFields(data, parentElement) {
+    let multipleChoice = ['cu_photo_id_type', 'cu_flag_military', 'v_flag_last_titled_in_tx', 'v_flag_abandoned ', 'v_flag_subject_to_charges', 'v_flag_subject_to_lien', 'v_flag_nonrepairable', 'v_flag_salvage', 'v_flag_pending_lawsuits', 'v_flag_legal_posession', 'v_flag_legal_control', 'v_flag_manufactured_us', 'v_flag_assembled', 'v_flag_complete', 'v_flag_25_or_older', 'v_flag_no_plates']
+
+
+    parentElement.innerHTML = ""
+
+    for (key in data) {
+      if (specificChoice.includes(key)) {
+        console.log('rawr')
+        continue;
+        console.log('agggg')
+      }
+      let formFieldDiv = document.createElement('div')
+      formFieldDiv.classList.add('form-group')
+
+      let formFieldLabel = document.createElement('label')
+      formFieldLabel.setAttribute('for', key)
+      formFieldLabel.textContent = key
+
+      let formFieldInput;
+      let optionTrue
+      let optionFalse
+      let optionNull
+      if (multipleChoice.includes(key) && !specificChoice.includes(key)) {
+        formFieldInput = document.createElement('select');
+        formFieldInput.setAttribute('name', key);
+        optionNull = document.createElement('option')
+        optionNull.value = 'null';
+        optionNull.innerHTML = 'Unknown'
+        formFieldInput.appendChild(optionNull)
+        optionTrue = document.createElement('option')
+        optionTrue.value = 'true';
+        optionTrue.innerHTML = 'Yes'
+        formFieldInput.appendChild(optionTrue)
+        optionFalse = document.createElement('option')
+        optionFalse.value = 'false';
+        optionFalse.innerHTML = 'No'
+        formFieldInput.appendChild(optionFalse)
+      } else {
+        formFieldInput = document.createElement('input');
+        formFieldInput.setAttribute('name', data[key])
+      }
+
+      formFieldInput.classList.add('form-control')
+
+      parentElement.appendChild(formFieldDiv)
+      formFieldDiv.appendChild(formFieldLabel)
+      formFieldDiv.appendChild(formFieldInput)
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  let dropdownButtons = document.querySelectorAll('.dropdown-item');
+  let reviewInfoForm = document.querySelector('.review-info');
+  let reviewInfoFormInputs;
+  let dataFields = document.querySelector('.data-fields');
   let submitToPDFButton = document.querySelector('.info-submit');
 
   dropdownButtons.forEach( button => {
@@ -164,7 +132,10 @@
       }).then( data => {
         console.log(data)
         reviewInfoForm.style.display = 'block';
+        makeFormFields(data, dataFields)
+        reviewInfoFormInputs = document.querySelectorAll('.review-info input, .review-info select')
         fillForm(data, reviewInfoFormInputs)
+
       }).catch( err => {
         console.log(err)
       })
@@ -219,19 +190,22 @@
       if(i >= inputs.length) {
         break;
       }
+      if (specificChoice.includes(key)) {
+        console.log('rawr')
+        continue;
+        console.log('agggg')
+      }
       if (info[key] == null) {
         inputs[i].value = ""
       } else if (inputs[i].nodeName === 'SELECT') {
           inputs[i].childNodes.forEach( item => {
-            console.log(key, info[key])
             if (item.nodeName == "OPTION" && item.value === info[key] || item.nodeName == "OPTION" && item.value == String(info[key])) {
               console.log('rawer', item)
               item.setAttribute('selected', 'selected')
-
             }
           })
 
-      } else {
+      } else  {
         inputs[i].value = info[key];
       }
       i ++;
