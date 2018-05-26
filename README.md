@@ -6,10 +6,11 @@
 ## Key Technologies:
  * Python
  * Django
- * MySQL
+ * PostgreSQL
  * HTML
  * CSS
  * JavaScript
+ * BootStrapo
 
 ## Authors
  ### Andy Tang - <a href="https://github.com/andytanghr"> @AndyTangHR </a>
