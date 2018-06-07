@@ -1,1 +1,1 @@
-**static/admin/js/* linguist-vendored
+*.js linguist-language=Python
